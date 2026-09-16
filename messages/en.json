@@ -1,0 +1,737 @@
+{
+  "meta": {
+    "siteName": "East to West Development Society",
+    "shortName": "East to West",
+    "tagline": "Where graduates and businesses build the future together.",
+    "description": "A professional community founded in Madinah that connects Saudi and international Muslim graduates with each other and with businesses across Saudi Arabia."
+  },
+  "common": {
+    "founded": "Founded in Madinah, serving all of Saudi Arabia",
+    "membershipByApplication": "Membership by application",
+    "reassurance": "Free to apply. No obligation. We reply within {responseTime}.",
+    "contactLine": "Contact: Muhsin Aden, founding coordinator",
+    "skipToContent": "Skip to content",
+    "languageSwitch": "العربية",
+    "learnMore": "Learn more",
+    "comingSoon": "Coming soon",
+    "foundingStage": "We are in our founding stage. Everything you see here is being built with our first members and partners."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "programmes": "Programmes",
+    "graduates": "Graduates",
+    "universities": "Universities",
+    "sponsors": "Sponsors",
+    "businesses": "Businesses",
+    "events": "Events",
+    "chapters": "Chapters",
+    "join": "Apply",
+    "contact": "Contact",
+    "press": "Press",
+    "downloads": "Downloads",
+    "privacy": "Privacy",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "values": {
+    "title": "Our values",
+    "cooperation": {
+      "name": "Cooperation",
+      "body": "Members give first; business follows."
+    },
+    "trust": {
+      "name": "Trust",
+      "body": "Members are vetted, commitments are kept, referrals are honest."
+    },
+    "excellence": {
+      "name": "Excellence",
+      "body": "Fewer things, done well."
+    },
+    "benefit": {
+      "name": "Benefit",
+      "body": "Every activity creates a skill, a contact, a job or a deal."
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Founded in Madinah · Serving all of Saudi Arabia",
+      "title": "Where graduates and businesses build the future together.",
+      "subtitle": "A professional community connecting Saudi and international Muslim graduates with each other and with businesses across the Kingdom.",
+      "cta": "Find your door",
+      "secondary": "Apply for membership",
+      "scrollCue": "Begin the crossing"
+    },
+    "shores": {
+      "eyebrow": "I — The two shores",
+      "title": "Two shores. One bridge.",
+      "east": {
+        "title": "Graduates",
+        "lines": [
+          "Community across nationalities",
+          "Skills, mentors and real projects",
+          "A path to a job, clients or your own business"
+        ]
+      },
+      "west": {
+        "title": "Businesses",
+        "lines": [
+          "Vetted, bilingual talent",
+          "Solutions to real challenges",
+          "Referrals from fellow members"
+        ]
+      }
+    },
+    "pillars": {
+      "eyebrow": "II — Our pillars",
+      "title": "Three pillars",
+      "items": [
+        {
+          "name": "Cooperation",
+          "body": "Mixed teams of Saudi and international graduates working side by side."
+        },
+        {
+          "name": "Innovation",
+          "body": "Real business challenges turned into tested solutions and new ventures."
+        },
+        {
+          "name": "Integration",
+          "body": "One professional community connecting talent with the Saudi market."
+        }
+      ]
+    },
+    "flywheel": {
+      "eyebrow": "III — How it grows",
+      "title": "Each side makes the other stronger.",
+      "nodes": [
+        "More vetted graduates",
+        "More businesses join",
+        "More jobs, contracts and deals",
+        "More sponsorship and reputation"
+      ],
+      "centre": "East to West",
+      "centreSub": "trust + data"
+    },
+    "programmes": {
+      "eyebrow": "IV — What we offer",
+      "title": "Nine programmes, one path.",
+      "groups": {
+        "learn": "Learn",
+        "connect": "Connect",
+        "build": "Build",
+        "earn": "Earn"
+      }
+    },
+    "challenge": {
+      "eyebrow": "V — Our signature",
+      "title": "The six-week challenge",
+      "intro": "Real problems, mixed teams, tested solutions.",
+      "steps": [
+        "A business brings a real challenge",
+        "Mixed teams form and research it",
+        "Teams build and test a solution",
+        "Teams pitch, and the business adopts the best"
+      ]
+    },
+    "journey": {
+      "eyebrow": "VI — Your journey",
+      "title": "From your first step to leading others.",
+      "steps": [
+        {
+          "name": "Join",
+          "body": "Apply and build your profile"
+        },
+        {
+          "name": "Learn",
+          "body": "Take the training you need"
+        },
+        {
+          "name": "Connect",
+          "body": "Attend events, meet a mentor"
+        },
+        {
+          "name": "Build",
+          "body": "Join a challenge team"
+        },
+        {
+          "name": "Earn",
+          "body": "Get hired or win clients"
+        },
+        {
+          "name": "Lead",
+          "body": "Mentor others, run a circle"
+        }
+      ]
+    },
+    "kingdom": {
+      "eyebrow": "VII — Across the Kingdom",
+      "title": "Founded in Madinah. Built for all of Saudi Arabia.",
+      "madinah": "Madinah — founding city",
+      "next": "Next chapters: Jeddah and Riyadh",
+      "abroad": "Later: alumni chapters abroad, from East to West",
+      "mapAlt": "Map of Saudi Arabia with Madinah marked as the founding city and Jeddah and Riyadh as next chapters."
+    },
+    "doors": {
+      "eyebrow": "VIII — Find your door",
+      "title": "Where would you like to begin?",
+      "graduates": {
+        "title": "Graduates",
+        "body": "Your degree is the start. Your network is the next step.",
+        "cta": "Apply for membership"
+      },
+      "universities": {
+        "title": "Universities",
+        "body": "Give your students a direct path from campus to career.",
+        "cta": "Host a campus chapter"
+      },
+      "sponsors": {
+        "title": "Sponsors",
+        "body": "Invest in the Kingdom's next generation of talent.",
+        "cta": "Become a founding sponsor"
+      },
+      "businesses": {
+        "title": "Businesses",
+        "body": "Meet talent. Share your expertise. Grow your business.",
+        "cta": "Take your seat"
+      }
+    },
+    "closing": {
+      "promise": "Meet the right people. Build real things. Get hired, get clients, or get funded.",
+      "cta": "Join the founding community"
+    }
+  },
+  "programmes": {
+    "title": "Programmes",
+    "intro": "Everything we offer follows one path: learn, connect, build, earn.",
+    "items": {
+      "businessEnglish": {
+        "name": "Business English training",
+        "body": "Meetings, emails, presentations and negotiation.",
+        "group": "learn"
+      },
+      "workplaceArabic": {
+        "name": "Workplace Arabic",
+        "body": "For international graduates entering Saudi workplaces.",
+        "group": "learn"
+      },
+      "financialLiteracy": {
+        "name": "Financial literacy workshops",
+        "body": "Budgeting, saving and Islamic finance basics.",
+        "group": "learn"
+      },
+      "careerReadiness": {
+        "name": "Career readiness",
+        "body": "CV reviews, interview practice and LinkedIn profiles.",
+        "group": "learn"
+      },
+      "networking": {
+        "name": "Weekly networking and keynotes",
+        "body": "Guest speakers from business and government.",
+        "group": "connect"
+      },
+      "mentorship": {
+        "name": "Mentorship",
+        "body": "Graduates paired with experienced professionals.",
+        "group": "connect"
+      },
+      "startupClinic": {
+        "name": "Startup clinic",
+        "body": "Idea validation, pitch coaching and funding routes.",
+        "group": "build"
+      },
+      "talentDirectory": {
+        "name": "Talent directory",
+        "body": "Vetted graduates that businesses can hire or contract.",
+        "group": "earn"
+      },
+      "hiringEvents": {
+        "name": "Hiring events",
+        "body": "Employers meet and interview graduates on the spot.",
+        "group": "earn"
+      }
+    }
+  },
+  "about": {
+    "title": "About the society",
+    "vision": {
+      "label": "Vision",
+      "body": "Every graduate in the Kingdom, Saudi or international, turns what they know into livelihoods, ventures and shared benefit."
+    },
+    "mission": {
+      "label": "Mission",
+      "body": "Connect graduates with each other and with businesses through weekly gatherings, practical training and real work, so that trust turns into jobs, contracts and companies."
+    },
+    "promise": {
+      "label": "Our promise",
+      "body": "Meet the right people. Build real things. Get hired, get clients, or get funded."
+    },
+    "whyNow": {
+      "title": "Why this, why now",
+      "body": "Saudi businesses need bilingual, work-ready talent and trusted partners. Saudi graduates need experience, networks and a route into entrepreneurship. International Muslim graduates bring languages, markets and skills but often lack local connections. We bring these three groups together around real work."
+    },
+    "principles": {
+      "title": "What we have learned from the world's lasting networks",
+      "items": [
+        "Small circles that meet every week",
+        "One seat per industry, and every referral recorded",
+        "A shared playbook so every chapter keeps the same standard",
+        "Established members supporting new chapters",
+        "Small, confidential forums for business owners",
+        "One annual gathering that brings everyone together"
+      ]
+    },
+    "structure": {
+      "title": "How we are organised",
+      "items": {
+        "graduateCircles": "Graduate Circles — 20 to 40 graduates meeting weekly",
+        "womensCircles": "Women's Circles — led by women, with access to every programme",
+        "businessCircle": "Business Circle — a weekly meeting with one seat per industry",
+        "foundersForum": "Founders' Forum — a monthly confidential group for business owners",
+        "campusChapters": "Campus chapters — hosted by universities",
+        "cityChapters": "City chapters — Madinah first, then Jeddah and Riyadh"
+      }
+    },
+    "governance": {
+      "title": "Governance",
+      "body": "A board with a Saudi majority, an advisory council of business leaders and educators, and volunteer leaders who rotate so the society keeps renewing itself."
+    },
+    "roadmap": {
+      "title": "Roadmap",
+      "year1": "Year 1: weekly events, training programmes, challenge cycles and quarterly hiring showcases.",
+      "year2": "Year 2: the annual East to West Summit, a startup track and chapters in more Saudi cities."
+    },
+    "founderNote": {
+      "title": "A note from the founder",
+      "placeholder": "Founder note coming soon."
+    }
+  },
+  "graduates": {
+    "eyebrow": "Membership for graduates",
+    "title": "Your degree is the start. Your network is the next step.",
+    "subtitle": "Join a community of Saudi and international graduates who learn, build and grow together.",
+    "problem": {
+      "title": "Don't let your degree wait on a network.",
+      "body": "Too many strong graduates send applications into silence. The right introductions, skills and projects change that."
+    },
+    "benefitsTitle": "Member benefits",
+    "benefits": [
+      {
+        "name": "Weekly networking",
+        "body": "Meet graduates and professionals from across the Kingdom."
+      },
+      {
+        "name": "Practical training",
+        "body": "Business English, Workplace Arabic and financial literacy."
+      },
+      {
+        "name": "A personal mentor",
+        "body": "Guidance from an experienced professional."
+      },
+      {
+        "name": "Real projects",
+        "body": "Solve business challenges and build your portfolio."
+      },
+      {
+        "name": "Jobs and clients",
+        "body": "Hiring events and a place in our talent directory."
+      },
+      {
+        "name": "Startup support",
+        "body": "Test your idea, practise your pitch, find funding routes."
+      }
+    ],
+    "whoTitle": "Who can join",
+    "who": [
+      "Saudi graduates",
+      "International Muslim graduates in the Kingdom",
+      "Final-year university students"
+    ],
+    "goodTitle": "Good to know",
+    "good": [
+      "Free places for students and job seekers",
+      "Women's circles led by women",
+      "Levels that reward your contribution: Member, Contributor, Circle Lead, Chapter Director"
+    ],
+    "microYes": "Join the WhatsApp community first",
+    "cta": "Apply to become a founding member",
+    "ctaNote": "Founding members help shape the society from day one."
+  },
+  "universities": {
+    "eyebrow": "For universities and colleges",
+    "title": "Give your students a direct path from campus to career.",
+    "subtitle": "Host an East to West chapter and connect your students with training, mentors and employers, at no cost to your university.",
+    "bringTitle": "What we bring to your campus",
+    "bring": [
+      {
+        "name": "Student-led chapter",
+        "body": "A campus chapter run by your students, supported by our team."
+      },
+      {
+        "name": "Skills training",
+        "body": "Business English, Workplace Arabic and financial literacy."
+      },
+      {
+        "name": "Career readiness",
+        "body": "CV reviews, interview practice and professional profiles."
+      },
+      {
+        "name": "Real business challenges",
+        "body": "Six-week projects where students solve problems set by companies."
+      },
+      {
+        "name": "Mentors and speakers",
+        "body": "Professionals and business leaders visiting your campus."
+      },
+      {
+        "name": "Hiring events on campus",
+        "body": "Employers meet your final-year students and graduates."
+      }
+    ],
+    "askTitle": "What we ask",
+    "ask": [
+      "A regular meeting space",
+      "A career-centre or faculty liaison",
+      "Promotion to your students",
+      "Co-branding on campus events"
+    ],
+    "gainTitle": "Your university gains",
+    "gain": [
+      "Stronger graduate employment",
+      "New industry partnerships",
+      "Engaged students across nationalities",
+      "Outcomes you can report"
+    ],
+    "stepsTitle": "How a partnership starts",
+    "steps": [
+      {
+        "name": "Meet",
+        "body": "An introductory meeting with your career centre"
+      },
+      {
+        "name": "Agree",
+        "body": "A simple partnership agreement and a space"
+      },
+      {
+        "name": "Launch",
+        "body": "A founding event with your students"
+      },
+      {
+        "name": "Report",
+        "body": "Shared updates on outcomes each term"
+      }
+    ],
+    "microYes": "Download the university one-pager",
+    "cta": "Host a campus chapter",
+    "ctaNote": "Let's meet and plan a launch for this academic year."
+  },
+  "sponsors": {
+    "eyebrow": "Sponsorship for businesses",
+    "title": "Invest in the Kingdom's next generation of talent.",
+    "subtitle": "Sponsor programmes that turn graduates into employees, entrepreneurs and partners, and see the results.",
+    "whyTitle": "Why sponsor",
+    "why": [
+      {
+        "name": "First access to talent",
+        "body": "Meet vetted, bilingual graduates early."
+      },
+      {
+        "name": "Brand visibility",
+        "body": "Reach graduates and businesses across the Kingdom."
+      },
+      {
+        "name": "National impact",
+        "body": "Support youth and women's employment goals."
+      },
+      {
+        "name": "Measured results",
+        "body": "A clear impact report for every sponsorship."
+      }
+    ],
+    "optionsTitle": "Sponsorship opportunities",
+    "options": [
+      {
+        "name": "Programme sponsor",
+        "body": "Name a training programme or challenge cycle."
+      },
+      {
+        "name": "Hiring event sponsor",
+        "body": "Lead a hiring day and meet candidates first."
+      },
+      {
+        "name": "Chapter patron",
+        "body": "Adopt a campus or city chapter for a year."
+      },
+      {
+        "name": "Scholarship sponsor",
+        "body": "Fund free places for students and job seekers."
+      },
+      {
+        "name": "Keynote series sponsor",
+        "body": "Present our weekly speaker events."
+      },
+      {
+        "name": "Summit partner",
+        "body": "Headline the annual East to West Summit."
+      }
+    ],
+    "receiveTitle": "Every sponsor receives",
+    "receive": [
+      "Logo on events and materials",
+      "A speaking opportunity",
+      "Access to the talent directory",
+      "A written impact report"
+    ],
+    "reportTitle": "What we report back",
+    "report": "Graduates trained, jobs and contracts created, challenges solved and event reach, shared with you every quarter.",
+    "illustrative": "Illustrative layout. Figures will come from real activity.",
+    "microYes": "Download the sponsorship prospectus",
+    "cta": "Become a founding sponsor",
+    "ctaNote": "Founding sponsors receive lasting recognition. Let's find the right fit."
+  },
+  "businesses": {
+    "eyebrow": "Collaboration for businesses",
+    "title": "Meet talent. Share your expertise. Grow your business.",
+    "subtitle": "Connect with other businesses, speak to ambitious graduates and hire from a vetted, bilingual talent pool.",
+    "waysTitle": "Three ways to work with us",
+    "ways": [
+      {
+        "name": "Networking",
+        "items": [
+          "Weekly Business Circle meetings",
+          "One seat per industry",
+          "Referrals from member businesses"
+        ]
+      },
+      {
+        "name": "Keynote speaking",
+        "items": [
+          "Share your expertise on stage",
+          "Inspire graduates and peers",
+          "Position your brand as a leader"
+        ]
+      },
+      {
+        "name": "Hiring",
+        "items": [
+          "Hiring events and on-the-spot interviews",
+          "Access to the talent directory",
+          "Challenge cycles as extended interviews"
+        ]
+      }
+    ],
+    "challenge": {
+      "title": "Bring us a real challenge",
+      "body": "Mixed graduate teams work on your problem for six weeks and present tested solutions. You meet future hires while they work."
+    },
+    "whoTitle": "Who should join",
+    "who": [
+      "Business owners and managers",
+      "HR and recruitment teams",
+      "Industry experts and leaders"
+    ],
+    "gainTitle": "What you gain",
+    "gain": [
+      "New clients and partners",
+      "Faster, better hiring",
+      "A respected voice in the community"
+    ],
+    "stepsTitle": "Getting started",
+    "steps": [
+      {
+        "name": "Contact us",
+        "body": "Tell us about your business"
+      },
+      {
+        "name": "Choose your role",
+        "body": "Networking, speaking, hiring or all three"
+      },
+      {
+        "name": "We match you",
+        "body": "With the right members and events"
+      }
+    ],
+    "seat": "One seat per industry.",
+    "microYes": "Attend a Business Circle as a guest",
+    "cta": "Take your seat at the table",
+    "ctaNote": "Seats in each industry are limited. Reserve yours early."
+  },
+  "events": {
+    "title": "Events",
+    "intro": "Weekly gatherings, keynotes, workshops, hiring events and, soon, the East to West Summit.",
+    "empty": "First events announced soon. Be the first to know.",
+    "types": {
+      "gathering": "Weekly gathering",
+      "keynote": "Keynote",
+      "workshop": "Workshop",
+      "hiring": "Hiring event",
+      "showcase": "Challenge showcase",
+      "summit": "Summit"
+    },
+    "addToCalendar": "Add to calendar",
+    "upcoming": "Upcoming",
+    "past": "Past events",
+    "weekendNote": "Dates follow the Saudi weekend (Friday and Saturday).",
+    "summit": {
+      "title": "East to West Summit",
+      "body": "Our annual national gathering. Details to be announced."
+    }
+  },
+  "chapters": {
+    "title": "Chapters",
+    "intro": "Every chapter follows the same playbook, so quality is the same wherever you join.",
+    "madinah": "Madinah — our founding chapter",
+    "next": "Next: Jeddah and Riyadh",
+    "campus": "Campus chapters at partner universities",
+    "abroad": "Later: alumni chapters abroad",
+    "requirementsTitle": "A new chapter can launch when it has",
+    "requirements": [
+      "Two co-directors, at least one of them Saudi",
+      "A confirmed host venue",
+      "20 founding members",
+      "At least one business patron",
+      "Completed director training"
+    ],
+    "cta": "Start a chapter"
+  },
+  "join": {
+    "title": "Apply or enquire",
+    "intro": "Choose the option that fits you. It takes about 2 minutes.",
+    "iAm": "I am...",
+    "modes": {
+      "graduate": "A graduate or final-year student",
+      "university": "From a university or college",
+      "sponsor": "Interested in sponsorship",
+      "business": "A business interested in collaboration",
+      "chapter": "Interested in starting a chapter"
+    },
+    "progress": "Step {current} of {total}",
+    "started": "You've started",
+    "lastStep": "Last step",
+    "back": "Back",
+    "next": "Continue",
+    "submit": {
+      "graduate": "Apply for membership",
+      "university": "Send partnership enquiry",
+      "sponsor": "Send sponsorship enquiry",
+      "business": "Send collaboration enquiry",
+      "chapter": "Send chapter enquiry"
+    },
+    "fields": {
+      "fullName": "Full name",
+      "email": "Email",
+      "mobile": "Mobile number",
+      "city": "City",
+      "nationality": "Nationality",
+      "status": "Current status",
+      "statusGraduate": "Graduate",
+      "statusStudent": "Final-year student",
+      "university": "University",
+      "fieldOfStudy": "Field of study",
+      "graduationYear": "Graduation year",
+      "languages": "Languages you speak",
+      "interests": "Programmes you're interested in",
+      "womensCircle": "I'd like to join a women's circle (optional)",
+      "linkedin": "LinkedIn profile (optional)",
+      "contribute": "How would you like to contribute?",
+      "institution": "Institution",
+      "contactName": "Your name",
+      "role": "Your role",
+      "phone": "Phone",
+      "interest": "What interests you",
+      "semester": "Preferred semester",
+      "message": "Message (optional)",
+      "company": "Company",
+      "sector": "Sector",
+      "options": "Sponsorship options of interest",
+      "budget": "Budget range (optional)",
+      "budgetDiscuss": "Prefer to discuss",
+      "roles": "How you'd like to take part",
+      "rolesNetworking": "Networking",
+      "rolesKeynote": "Keynote speaking",
+      "rolesHiring": "Hiring",
+      "rolesChallenge": "Bring a challenge",
+      "hiringNeeds": "Hiring needs",
+      "chapterCity": "City or campus for the chapter",
+      "coDirector": "Do you have a co-director?",
+      "consent": "I agree that East to West Development Society may store and use these details to respond to my enquiry, as described in the Privacy page."
+    },
+    "errors": {
+      "required": "Please fill in this field.",
+      "email": "Please enter a valid email address, like name@example.com.",
+      "phone": "Please enter a valid phone number, for example +966 5X XXX XXXX.",
+      "graduationYear": "Please add your graduation year so we can match you to the right circle.",
+      "consent": "Please tick the box so we can respond to you.",
+      "generic": "Something went wrong on our side. Your answers are saved; please try again."
+    }
+  },
+  "confirmation": {
+    "title": "Your invitation is on its way.",
+    "body": "Thank you, {name}. We've received your {type} and will reply within {responseTime}.",
+    "date": "Received on {gregorian} · {hijri}",
+    "next": "Your next step",
+    "nextWhatsapp": "Join our WhatsApp community",
+    "nextEvents": "See upcoming events",
+    "share": "Invite a friend",
+    "inviteLink": "Your personal invite link",
+    "journeyJoined": "Join ✓"
+  },
+  "downloads": {
+    "title": "Downloads",
+    "intro": "Free to download. No email required.",
+    "prospectus": "Sponsorship prospectus (PDF)",
+    "onePager": "University partnership one-pager (PDF)",
+    "emailOptional": "Want updates? Leave your email (optional)."
+  },
+  "press": {
+    "title": "Press",
+    "boilerplate": "East to West Development Society is a professional community founded in Madinah and serving all of Saudi Arabia. It connects Saudi and international Muslim graduates with each other and with businesses through weekly gatherings, practical training and real work.",
+    "logos": "Logo downloads",
+    "colours": "Brand colours"
+  },
+  "faq": {
+    "title": "Questions, answered honestly",
+    "items": [
+      {
+        "q": "Is the society officially registered?",
+        "a": "Not yet. We are in our founding stage and working with licensed host partners while we build a track record. We will announce registration when it is complete."
+      },
+      {
+        "q": "How much does membership cost?",
+        "a": "{membershipCost}. Free places are available for students and job seekers."
+      },
+      {
+        "q": "Where do events take place?",
+        "a": "Our first events are in Madinah, hosted by partner venues. More cities will follow."
+      },
+      {
+        "q": "How do women's circles work?",
+        "a": "Women's circles are led by women and have access to every programme. Choosing a women's circle is optional and private."
+      },
+      {
+        "q": "Do you guarantee jobs?",
+        "a": "No one can honestly guarantee a job. We create real introductions, skills and projects that make opportunities far more likely."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "We'd be glad to hear from you.",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "chat": "Message us on WhatsApp"
+  },
+  "privacy": {
+    "title": "Privacy",
+    "draftNote": "Draft. To be reviewed by a qualified adviser before launch.",
+    "body": "We collect only the details you give us in our forms, and use them only to respond to you and to manage your membership or partnership. We do not sell your data. You can ask us to see, correct or delete your data at any time by contacting us."
+  },
+  "notFound": {
+    "title": "This path hasn't been built yet.",
+    "cta": "Return home"
+  },
+  "footer": {
+    "newsletter": "Receive our updates",
+    "newsletterNote": "We'll email you to confirm. Unsubscribe anytime.",
+    "rights": "© {year} East to West Development Society"
+  }
+}

@@ -1,0 +1,95 @@
+/* PROVISIONAL TOKENS — replace with the brand/ export from Claude Design when available.
+   Every colour, font, radius and motion value on the site must come from these variables. */
+:root {
+  /* colour */
+  --obsidian: #101315;
+  --night: #1A2124;
+  --palm: #1F5A45;
+  --palm-soft: #6FA58B;
+  --antique-gold: #B0873F;
+  --gold-light: #D9B878;
+  --ivory: #F5F1E8;
+  --stone: #E6E0D3;
+  --ink: #16191A;
+  --ink-muted: #5B605C;
+  --dawn: #E9C9A0;
+
+  /* semantic (light) */
+  --bg: var(--ivory);
+  --surface: #FBF9F4;
+  --text: var(--ink);
+  --text-muted: var(--ink-muted);
+  --line: var(--stone);
+  --primary: var(--palm);
+  --on-primary: var(--ivory);
+  --accent: var(--antique-gold);
+  --focus: var(--antique-gold);
+
+  /* type */
+  --font-display-latin: "Bodoni Moda", "Times New Roman", serif;
+  --font-display-arabic: "Amiri", "Traditional Arabic", serif;
+  --font-body-latin: "IBM Plex Sans", system-ui, sans-serif;
+  --font-body-arabic: "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --text-hero: clamp(48px, 8vw, 128px);
+  --text-h1: clamp(40px, 5.5vw, 84px);
+  --text-h2: clamp(32px, 4vw, 56px);
+  --text-h3: clamp(22px, 2.2vw, 30px);
+  --text-body: clamp(16px, 1.1vw, 18px);
+  --text-label: 12px;
+  --leading-display-latin: 1.05;
+  --leading-display-arabic: 1.4;
+  --leading-body-latin: 1.6;
+  --leading-body-arabic: 1.85;
+  --tracking-label: 0.18em;
+
+  /* space and shape */
+  --content-max: 1320px;
+  --measure: 66ch;
+  --section-y: clamp(72px, 14vh, 200px);
+  --radius: 2px;
+  --hairline: 1px;
+
+  /* motion */
+  --ease-noble: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-hover: 400ms;
+  --dur-reveal: 900ms;
+  --dur-page: 700ms;
+  --stagger: 90ms;
+  --rise: 20px;
+}
+
+:root[data-theme="dark"] {
+  --bg: var(--obsidian);
+  --surface: var(--night);
+  --text: #ECE7DC;
+  --text-muted: #A9ADA6;
+  --line: rgba(217, 184, 120, 0.25);
+  --primary: var(--palm-soft);
+  --on-primary: var(--obsidian);
+  --accent: var(--gold-light);
+  --focus: var(--gold-light);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--obsidian);
+    --surface: var(--night);
+    --text: #ECE7DC;
+    --text-muted: #A9ADA6;
+    --line: rgba(217, 184, 120, 0.25);
+    --primary: var(--palm-soft);
+    --on-primary: var(--obsidian);
+    --accent: var(--gold-light);
+    --focus: var(--gold-light);
+  }
+}
+
+html[lang="ar"] { --font-display: var(--font-display-arabic); --font-body: var(--font-body-arabic); --leading-display: var(--leading-display-arabic); --leading-body: var(--leading-body-arabic); }
+html[lang="en"] { --font-display: var(--font-display-latin); --font-body: var(--font-body-latin); --leading-display: var(--leading-display-latin); --leading-body: var(--leading-body-latin); }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-hover: 0ms; --dur-reveal: 0ms; --dur-page: 0ms; --stagger: 0ms; --rise: 0px; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
