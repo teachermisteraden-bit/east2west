@@ -13,8 +13,11 @@
   color: var(--text-muted);
   font-size: clamp(1.05rem, 1.4vw, 1.25rem);
 }
-.pageintro + * { padding-block-start: var(--section-y); }
-.pageintro .hairline { margin-block-start: clamp(3rem, 8vh, 6rem); }
+/* The closing rule already separates the intro from what follows, so the first
+   section does not also need a full --section-y above it. Stacked, the two came
+   to nearly 300px of nothing, which reads as empty rather than generous (01 §1). */
+.pageintro .hairline { margin-block-start: clamp(2.5rem, 6vh, 4rem); }
+.pageintro + .section { padding-block-start: clamp(2.5rem, 6vh, 4.5rem); }
 
 /* Phase 1 placeholder marker. Removed as each page is built in Phase 2. */
 .stub {

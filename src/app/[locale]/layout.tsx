@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 
 import { routing } from "@/i18n/routing";
 import { getLocale, activeLocales } from "@/i18n/locales";
@@ -13,6 +13,18 @@ import { SiteFooter } from "@/components/ui/SiteFooter";
 import { ThemeScript } from "@/components/ui/ThemeScript";
 
 import "@/styles/globals.css";
+
+/**
+ * Namespaces sent to the browser.
+ *
+ * Without this, next-intl serialises the ENTIRE catalogue into every page's RSC
+ * payload — 9 KB gzipped in Arabic, around 60% of the page's transfer, for
+ * strings no client component reads. Pages are server-rendered, so only
+ * namespaces used by a "use client" component belong here.
+ *
+ * Phase 3 adds "join" and "confirmation" when the form moves to the client.
+ */
+const CLIENT_NAMESPACES = ["common"] as const;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -62,6 +74,11 @@ export default async function LocaleLayout({
   const def = getLocale(locale);
   const t = await getTranslations({ locale, namespace: "common" });
 
+  const all = await getMessages();
+  const clientMessages = Object.fromEntries(
+    CLIENT_NAMESPACES.filter((ns) => ns in all).map((ns) => [ns, all[ns]]),
+  );
+
   return (
     <html
       lang={locale}
@@ -76,7 +93,7 @@ export default async function LocaleLayout({
         <ThemeScript />
       </head>
       <body>
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={clientMessages}>
           <a className="skip-link" href="#main">
             {t("skipToContent")}
           </a>

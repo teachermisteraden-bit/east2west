@@ -38,11 +38,14 @@ export async function SiteHeader({ locale }: { locale: string }) {
         </nav>
 
         <div className="siteheader__actions">
+          {/* Always visible, at every breakpoint. */}
           <LanguageSwitch locale={locale} label={tc("languageSwitch")} />
-          <ThemeToggle label={tc("themeToggle")} />
-          <Link href={joinHref} className="btn btn--primary btn--sm">
-            {t("join")}
-          </Link>
+          <div className="siteheader__desktoponly">
+            <ThemeToggle label={tc("themeToggle")} />
+            <Link href={joinHref} className="btn btn--primary btn--sm">
+              {t("join")}
+            </Link>
+          </div>
         </div>
 
         <details className="siteheader__disclosure">
@@ -62,7 +65,6 @@ export async function SiteHeader({ locale }: { locale: string }) {
               </ul>
             </nav>
             <div className="siteheader__panelactions">
-              <LanguageSwitch locale={locale} label={tc("languageSwitch")} />
               <ThemeToggle label={tc("themeToggle")} />
             </div>
             <Link href={joinHref} className="btn btn--primary">

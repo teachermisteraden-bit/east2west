@@ -6,6 +6,7 @@
 @import "../components/brand/wordmark.css";
 @import "../components/ui/chrome.css";
 @import "../components/ui/pageintro.css";
+@import "../components/ui/content.css";
 @import "../components/scenes/hero.css";
 
 /* Map the design tokens into Tailwind v4 so utilities and tokens can never drift.
@@ -67,6 +68,14 @@ body {
   text-rendering: optimizeLegibility;
   /* Never let a scene cause sideways travel. */
   overflow-x: hidden;
+}
+
+/* The header is sticky, so anchored targets must clear it rather than scroll
+   underneath. Covers "Find your door" and any deep link into a section. */
+:target,
+section[id],
+h1, h2, h3 {
+  scroll-margin-block-start: clamp(5rem, 12vh, 7rem);
 }
 
 h1, h2, h3, h4 {

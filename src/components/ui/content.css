@@ -1,0 +1,365 @@
+/* Content sections, frames, steps, grids, FAQ and the invitation. */
+
+/* ----------------------------------------------------------- section ----- */
+
+.section { padding-block: var(--section-y); }
+.section--quiet { background: var(--surface); }
+.section--dark { background: var(--obsidian); color: #ECE7DC; }
+
+.section__head { margin-block-end: clamp(2.5rem, 6vh, 4.5rem); }
+.section__head .eyebrow { margin: 0 0 1.25rem; }
+
+.section__title {
+  font-size: var(--text-h2);
+  max-inline-size: 20ch;
+  margin: 0;
+}
+:root[data-script="arabic"] .section__title { max-inline-size: 24ch; }
+
+.section__lead {
+  margin-block: 1.5rem 0;
+  color: var(--text-muted);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+}
+
+.section__rule { margin-block-start: var(--section-y); }
+.section + .section { padding-block-start: 0; }
+
+/* ------------------------------------------------------------- frame ----- */
+
+/* Hairline frame with a 6px inner offset line — fine stationery (01 §2). */
+.frame {
+  position: relative;
+  display: block;
+  border: var(--hairline) solid var(--line);
+  background: var(--surface);
+  list-style: none;
+}
+.frame__inner {
+  position: absolute;
+  inset: 6px;
+  border: var(--hairline) solid var(--line-accent);
+  pointer-events: none;
+  transition: inset var(--dur-hover) var(--ease-noble), border-color var(--dur-hover) var(--ease-standard);
+}
+.frame__body { padding: clamp(1.5rem, 3vw, 2.25rem); }
+
+/* The inner line eases outward on hover, like a door opening a little. */
+.frame--interactive { transition: transform var(--dur-hover) var(--ease-noble); }
+.frame--interactive:hover { transform: translateY(-4px); }
+.frame--interactive:hover .frame__inner,
+.frame--interactive:focus-within .frame__inner {
+  inset: 3px;
+  border-color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame--interactive:hover { transform: none; }
+}
+
+/* ------------------------------------------------------------- steps ----- */
+
+.steps {
+  display: grid;
+  gap: clamp(1.75rem, 4vh, 2.75rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps__item {
+  position: relative;
+  padding-inline-start: 4.25rem;
+}
+
+.steps__num {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: -0.35rem;
+  inline-size: 2.75rem;
+  text-align: center;
+  font-family: var(--font-display-latin);
+  font-size: 1.75rem;
+  line-height: 1;
+  /* Gold that clears AA on ivory, stone and surface alike. */
+  color: var(--accent-strong);
+  font-variant-numeric: lining-nums;
+}
+
+/* The thread that joins the steps, and fills toward the goal. */
+.steps__thread {
+  position: absolute;
+  inset-inline-start: 1.32rem;
+  inset-block-start: 1.9rem;
+  inline-size: var(--hairline);
+  block-size: calc(100% + clamp(1.75rem, 4vh, 2.75rem) - 1.9rem);
+  background: var(--line-accent);
+}
+.steps__item:last-child .steps__thread { display: none; }
+
+.steps__name {
+  font-size: var(--text-h3);
+  margin: 0 0 0.5rem;
+}
+.steps__body { margin: 0; color: var(--text-muted); max-inline-size: 52ch; }
+
+/* Goal gradient: the destination glows (01 §4, 02). */
+.steps__item[data-goal="true"] .steps__num {
+  color: var(--accent-strong);
+  font-weight: 500;
+}
+.steps__item[data-goal="true"] .steps__name { color: var(--primary); }
+
+@media (min-width: 900px) {
+  .steps--row {
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 2rem;
+  }
+  .steps--row .steps__item { padding-inline-start: 0; padding-block-start: 3.25rem; }
+  .steps--row .steps__num { inset-block-start: 0; inset-inline-start: 0; text-align: start; }
+  .steps--row .steps__thread {
+    inset-block-start: 1.1rem;
+    inset-inline-start: 3rem;
+    inline-size: calc(100% - 1rem);
+    block-size: var(--hairline);
+  }
+}
+
+/* ---------------------------------------------------------- cardgrid ----- */
+
+.cardgrid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cardgrid__name { font-size: var(--text-h3); margin: 0 0 0.6rem; }
+.cardgrid__body { margin: 0; color: var(--text-muted); }
+.cardgrid__list {
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+  color: var(--text-muted);
+}
+.cardgrid__list li { padding-inline-start: 1rem; position: relative; }
+.cardgrid__list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.62em;
+  inline-size: 5px;
+  block-size: 5px;
+  background: var(--accent);
+}
+.cardgrid__plain { padding-block: 1.25rem; border-block-start: var(--hairline) solid var(--line); }
+
+@media (min-width: 700px) {
+  .cardgrid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cardgrid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .cardgrid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* --------------------------------------------------------- plainlist ----- */
+
+.plainlist { margin: 0; padding: 0; list-style: none; }
+.plainlist li {
+  padding-block: 1.1rem;
+  border-block-start: var(--hairline) solid var(--line);
+}
+.plainlist li:last-child { border-block-end: var(--hairline) solid var(--line); }
+@media (min-width: 768px) {
+  .plainlist--2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(2rem, 5vw, 4rem); }
+  .plainlist--2 li:nth-last-child(2):nth-child(odd) { border-block-end: var(--hairline) solid var(--line); }
+}
+
+/* --------------------------------------------------------------- faq ----- */
+
+.faq__title { margin-block-end: clamp(2rem, 5vh, 3rem); }
+.faq__list { margin: 0; padding: 0; list-style: none; }
+
+.faq__item { border-block-start: var(--hairline) solid var(--line); }
+.faq__list li:last-child .faq__item { border-block-end: var(--hairline) solid var(--line); }
+
+.faq__item > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.5rem;
+  cursor: pointer;
+  list-style: none;
+}
+.faq__item > summary::-webkit-details-marker { display: none; }
+
+.faq__q { font-family: var(--font-display); font-size: clamp(1.1rem, 1.6vw, 1.35rem); }
+
+/* A plus that becomes a minus. No rotation, no bounce. */
+.faq__marker {
+  position: relative;
+  flex: 0 0 auto;
+  inline-size: 14px;
+  block-size: 14px;
+}
+.faq__marker::before,
+.faq__marker::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 0;
+  inline-size: 14px;
+  block-size: var(--hairline);
+  background: var(--accent-strong);
+  transition: opacity var(--dur-hover) var(--ease-standard);
+}
+.faq__marker::after { transform: rotate(90deg); }
+.faq__item[open] .faq__marker::after { opacity: 0; }
+
+.faq__a { padding-block-end: 1.75rem; }
+.faq__a p { margin: 0; color: var(--text-muted); max-inline-size: 62ch; }
+
+/* -------------------------------------------------------- invitation ----- */
+
+.invitation { padding-block: var(--section-y); }
+.invitation__card { background: var(--surface); }
+.invitation__card .frame__body { padding: clamp(2rem, 5vw, 4rem); }
+
+.invitation__title { font-size: var(--text-h2); max-inline-size: 18ch; margin: 0; }
+.invitation__note { margin-block: 1.25rem 0; color: var(--text-muted); }
+.invitation__actions { margin-block-start: clamp(1.75rem, 4vh, 2.5rem); }
+.invitation__reassurance {
+  margin-block: 1rem 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.invitation__micro { margin-block: 1.5rem 0; font-size: 0.9rem; }
+
+/* ------------------------------------------------------------- prose ----- */
+
+.prose { display: grid; gap: 1.25rem; max-inline-size: var(--measure); }
+.prose p { margin: 0; color: var(--text-muted); }
+.prose > h3 { font-size: var(--text-h3); margin-block-start: 1rem; }
+
+.deflist { display: grid; gap: clamp(1.5rem, 4vh, 2.5rem); margin: 0; }
+.deflist__row { display: grid; gap: 0.5rem; }
+.deflist__label {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 500;
+  color: var(--accent-strong);
+  margin: 0;
+}
+:root[data-script="latin"] .deflist__label { text-transform: uppercase; letter-spacing: var(--tracking-label); }
+.deflist__value { margin: 0; font-family: var(--font-display); font-size: var(--text-h3); line-height: var(--leading-display); }
+
+/* A quiet note the owner will replace (founder note, privacy draft). */
+.placeholder-note {
+  border: var(--hairline) dashed var(--line);
+  padding: 1.25rem 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------ events ----- */
+
+.events {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 768px) { .events { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.events__date {
+  margin: 1rem 0 0;
+  font-family: var(--font-display-latin);
+  color: var(--accent-strong);
+  font-variant-numeric: lining-nums;
+}
+.events__where { margin: 0.35rem 0 0; color: var(--text-muted); font-size: 0.9rem; }
+.events__note { margin-block-start: 1.5rem; color: var(--text-muted); font-size: 0.85rem; }
+
+.events__empty .frame__body { padding-block: clamp(3rem, 8vh, 5rem); }
+.events__emptyline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  max-inline-size: 30ch;
+}
+
+/* ---------------------------------------------------------- chapters ----- */
+
+.chapters {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 768px) { .chapters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.chapters .eyebrow { margin: 0 0 0.85rem; }
+
+/* ------------------------------------------------------------- seat ------ */
+
+.seat__line {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+}
+.seat__count { margin: 0.75rem 0 0; color: var(--accent-strong); }
+
+/* ----------------------------------------------------------- report ------ */
+
+.report { margin-block-start: clamp(2rem, 5vh, 3rem); }
+.report__label { margin: 0 0 1.5rem; color: var(--accent-strong); }
+.report__grid { display: grid; gap: 1rem; margin: 0; }
+.report__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding-block: 0.85rem;
+  border-block-start: var(--hairline) solid var(--line);
+}
+.report__row dt { color: var(--text-muted); }
+.report__row dd { margin: 0; }
+/* A rule where a figure will go. Deliberately not a number. */
+.report__rule {
+  display: block;
+  inline-size: clamp(48px, 8vw, 96px);
+  block-size: var(--hairline);
+  background: var(--line-accent);
+}
+
+/* --------------------------------------------------------- swatches ------ */
+
+.swatches {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+.swatches__item { display: grid; gap: 0.5rem; }
+.swatches__chip {
+  display: block;
+  block-size: 84px;
+  border: var(--hairline) solid var(--line);
+}
+.swatches__name { font-family: var(--font-display); }
+.swatches__token { font-size: 0.8rem; color: var(--text-muted); font-family: ui-monospace, monospace; }
+
+.press__logo .frame__body { padding: clamp(2rem, 5vw, 3.5rem); }
+
+/* ------------------------------------------------------------ modes ------ */
+
+.modes__link { display: block; text-decoration: none; }
+.modes__item.is-selected { border-color: var(--accent); }
+.modes__item.is-selected .frame__inner { border-color: var(--accent); inset: 3px; }
