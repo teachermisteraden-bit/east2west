@@ -45,8 +45,25 @@ invitation.
 | Truthfulness | Founding stage on About; privacy marked as a draft on the page itself; the logo page says the mark is not final | `about/`, `privacy/`, `press/` | The visitor can see what is still being worked out |
 | Anticipation over absence | The events empty state is framed as a card, reading "First events announced soon" | `events/page.tsx` | No invented events, no fake scarcity, and a real next step so it is not a dead end |
 
+## Phase 3 — Conversion
+
+| Principle | Where it lives | File | Limit held |
+|---|---|---|---|
+| Commitment and consistency | The easiest question is asked first and alone — "I am a…" on /join — before any field | `src/app/[locale]/join/page.tsx` | The "about 2 minutes" estimate is kept true by keeping the steps short |
+| Endowed progress (Nunes and Drèze) | The thread arrives with its first node already filled, because choosing a mode really was a step | `src/components/forms/ProgressThread.tsx`, `src/lib/form-steps.ts` | The progress shown is real. Nothing is pre-filled to flatter the visitor |
+| Goal-gradient effect | The final step is named "Last step"; the current node is the brightest | `ProgressThread.tsx`, `forms.css` | — |
+| Small first steps | Three short steps per mode, validated one at a time so errors arrive close to the field | `JoinForm.tsx` | Errors are kind and specific, in the visitor's language, never English prose |
+| Peak-end rule (Kahneman) | The invitation card replaces the form: name, both calendars, journey lit, next step, invite link. Focus and scroll move to it | `src/components/forms/InvitationCard.tsx` | Nothing is claimed that did not happen: the card only appears once storage succeeded |
+| Unfinished-task pull (Zeigarnik) | The card shows the next step rather than nagging | `InvitationCard.tsx` | One acknowledgement email. No drip sequence, no reminders |
+| Ownership (IKEA effect) | "How would you like to contribute?" is asked of every graduate | `form-steps.ts` | Only influence the society will genuinely give |
+| Reciprocity | The WhatsApp community is offered as a micro-yes before any commitment | audience pages, `InvitationCard.tsx` | Hidden entirely when no community URL is configured |
+| Consent, never assumed | The consent box is required, never pre-ticked, and is deliberately NOT restored from a saved draft | `Fields.tsx`, `JoinForm.tsx` | Consent must be given afresh each time. `consent_at` is stored; the consent text is not duplicated |
+| Privacy by minimisation | Rate limiting keys on a salted hash of the IP in its own table — no address, no link to a submission | `src/lib/rate-limit.ts`, `supabase/migrations/0001_rate_limits.sql` | Abuse protection that collects nothing about a person |
+| No dead ends | A failed submission says so and keeps the answers; the draft is restored on return | `JoinForm.tsx` | The visitor is never told an application arrived when it did not |
+| Double opt-in | Newsletter subscribing records intent only; nothing is sent until the emailed link is clicked | `src/app/actions/newsletter.ts` | Separate lists per language, so Arabic subscribers are not sent English |
+| Truthful attribution | Poster QR visits are remembered in a first-party cookie and stored with the submission | `src/lib/tracking.ts`, `src/app/go/[campaign]/route.ts` | No third-party tracker, no cross-site identifier, nothing personal |
+
 ## Still to come
 
-- Phase 3: endowed progress, goal gradient, commitment and consistency, peak-end, reciprocity, truthful scarcity.
 - Phase 4: the scroll story — self-reference (two shores), serial position, the flywheel, the journey thread.
 - Phase 5: measurement, with no dark patterns in what is measured.

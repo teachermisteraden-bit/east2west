@@ -668,7 +668,47 @@
       "url_draft": true,
       "tooLong": "يرجى اختصار النص قليلًا ليتناسب مع المساحة.",
       "tooLong_draft": true
-    }
+    },
+    "options": {
+      "interestCampusChapter": "فرع جامعي بقيادة الطلاب",
+      "interestTraining": "تدريب على المهارات",
+      "interestHiringEvent": "فعاليات توظيف في الحرم",
+      "interestChallengeCycle": "تحديات أعمال حقيقية",
+      "programme": "راعي برنامج",
+      "hiringEvent": "راعي فعالية توظيف",
+      "chapterPatron": "راعي فرع",
+      "scholarship": "راعي المنح",
+      "keynoteSeries": "راعي سلسلة المحاضرات",
+      "summit": "شريك الملتقى",
+      "coDirectorYes": "نعم",
+      "coDirectorYes_draft": true,
+      "coDirectorNo": "لا",
+      "coDirectorNo_draft": true,
+      "coDirectorNotYet": "ليس بعد، وأبحث عن شريك",
+      "coDirectorNotYet_draft": true
+    },
+    "typeNoun": {
+      "graduate": "طلب العضوية",
+      "graduate_draft": true,
+      "university": "طلب الشراكة",
+      "university_draft": true,
+      "sponsor": "طلب الرعاية",
+      "sponsor_draft": true,
+      "business": "طلب التعاون",
+      "business_draft": true,
+      "chapter": "طلب إطلاق الفرع",
+      "chapter_draft": true
+    },
+    "optional": "اختياري",
+    "optional_draft": true,
+    "selectAll": "اختر كل ما ينطبق",
+    "selectAll_draft": true,
+    "submitting": "جارٍ الإرسال…",
+    "submitting_draft": true,
+    "draftSaved": "حُفظت إجاباتك على هذا الجهاز.",
+    "draftSaved_draft": true,
+    "stepsTitle": "طلبك",
+    "stepsTitle_draft": true
   },
   "confirmation": {
     "title": "دعوتك في الطريق إليك.",
@@ -739,5 +779,41 @@
     "newsletter": "تابع أخبارنا",
     "newsletterNote": "سنراسلك للتأكيد، ويمكنك إلغاء الاشتراك في أي وقت.",
     "rights": "© {year} جمعية الشرق إلى الغرب للتنمية"
+  },
+  "share": {
+    "title": "شارك",
+    "title_draft": true,
+    "whatsapp": "واتساب",
+    "whatsapp_draft": true,
+    "linkedin": "لينكدإن",
+    "linkedin_draft": true,
+    "x": "إكس",
+    "x_draft": true,
+    "copy": "انسخ الرابط",
+    "copy_draft": true,
+    "copied": "تم نسخ الرابط",
+    "copied_draft": true
+  },
+  "newsletter": {
+    "submit": "اشترك",
+    "submit_draft": true,
+    "checkInbox": "بقيت خطوة واحدة. تحقّق من بريدك وأكّد الاشتراك.",
+    "checkInbox_draft": true,
+    "confirmTitle": "تم تأكيد اشتراكك.",
+    "confirmTitle_draft": true,
+    "confirmBody": "شكرًا لك. ستصلك أخبارنا باللغة التي اخترتها.",
+    "confirmBody_draft": true,
+    "alreadyConfirmed": "هذا الاشتراك مؤكَّد من قبل. لا حاجة لأي إجراء.",
+    "alreadyConfirmed_draft": true,
+    "invalidToken": "هذا الرابط غير صالح أو انتهت صلاحيته. يرجى الاشتراك مرة أخرى.",
+    "invalidToken_draft": true
+  },
+  "email": {
+    "subject": "استلمنا {type}",
+    "subject_draft": true,
+    "greeting": "مرحبًا {name}،",
+    "greeting_draft": true,
+    "signoff": "مع الشكر،",
+    "signoff_draft": true
   }
 }

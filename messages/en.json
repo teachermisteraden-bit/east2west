@@ -668,7 +668,47 @@
       "url_draft": true,
       "tooLong": "Please shorten this a little so it fits.",
       "tooLong_draft": true
-    }
+    },
+    "options": {
+      "interestCampusChapter": "Student-led chapter",
+      "interestTraining": "Skills training",
+      "interestHiringEvent": "Hiring events on campus",
+      "interestChallengeCycle": "Real business challenges",
+      "programme": "Programme sponsor",
+      "hiringEvent": "Hiring event sponsor",
+      "chapterPatron": "Chapter patron",
+      "scholarship": "Scholarship sponsor",
+      "keynoteSeries": "Keynote series sponsor",
+      "summit": "Summit partner",
+      "coDirectorYes": "Yes",
+      "coDirectorYes_draft": true,
+      "coDirectorNo": "No",
+      "coDirectorNo_draft": true,
+      "coDirectorNotYet": "Not yet, but I am looking",
+      "coDirectorNotYet_draft": true
+    },
+    "typeNoun": {
+      "graduate": "membership application",
+      "graduate_draft": true,
+      "university": "partnership enquiry",
+      "university_draft": true,
+      "sponsor": "sponsorship enquiry",
+      "sponsor_draft": true,
+      "business": "collaboration enquiry",
+      "business_draft": true,
+      "chapter": "chapter enquiry",
+      "chapter_draft": true
+    },
+    "optional": "Optional",
+    "optional_draft": true,
+    "selectAll": "Select all that apply",
+    "selectAll_draft": true,
+    "submitting": "Sending…",
+    "submitting_draft": true,
+    "draftSaved": "Your answers are saved on this device.",
+    "draftSaved_draft": true,
+    "stepsTitle": "Your application",
+    "stepsTitle_draft": true
   },
   "confirmation": {
     "title": "Your invitation is on its way.",
@@ -739,5 +779,41 @@
     "newsletter": "Receive our updates",
     "newsletterNote": "We'll email you to confirm. Unsubscribe anytime.",
     "rights": "© {year} East to West Development Society"
+  },
+  "share": {
+    "title": "Share",
+    "title_draft": true,
+    "whatsapp": "WhatsApp",
+    "whatsapp_draft": true,
+    "linkedin": "LinkedIn",
+    "linkedin_draft": true,
+    "x": "X",
+    "x_draft": true,
+    "copy": "Copy link",
+    "copy_draft": true,
+    "copied": "Link copied",
+    "copied_draft": true
+  },
+  "newsletter": {
+    "submit": "Subscribe",
+    "submit_draft": true,
+    "checkInbox": "Almost there. Check your inbox and confirm to finish subscribing.",
+    "checkInbox_draft": true,
+    "confirmTitle": "Your subscription is confirmed.",
+    "confirmTitle_draft": true,
+    "confirmBody": "Thank you. You will receive our updates in the language you chose.",
+    "confirmBody_draft": true,
+    "alreadyConfirmed": "This subscription was already confirmed. Nothing more to do.",
+    "alreadyConfirmed_draft": true,
+    "invalidToken": "This link is not valid, or it has expired. Please subscribe again.",
+    "invalidToken_draft": true
+  },
+  "email": {
+    "subject": "We have received your {type}",
+    "subject_draft": true,
+    "greeting": "Hello {name},",
+    "greeting_draft": true,
+    "signoff": "With thanks,",
+    "signoff_draft": true
   }
 }

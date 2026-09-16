@@ -1,0 +1,26 @@
+{
+  "en": {
+    "join.options.interestCampusChapter": "Student-led chapter",
+    "join.options.interestTraining": "Skills training",
+    "join.options.interestHiringEvent": "Hiring events on campus",
+    "join.options.interestChallengeCycle": "Real business challenges",
+    "join.options.programme": "Programme sponsor",
+    "join.options.hiringEvent": "Hiring event sponsor",
+    "join.options.chapterPatron": "Chapter patron",
+    "join.options.scholarship": "Scholarship sponsor",
+    "join.options.keynoteSeries": "Keynote series sponsor",
+    "join.options.summit": "Summit partner"
+  },
+  "ar": {
+    "join.options.interestCampusChapter": "فرع جامعي بقيادة الطلاب",
+    "join.options.interestTraining": "تدريب على المهارات",
+    "join.options.interestHiringEvent": "فعاليات توظيف في الحرم",
+    "join.options.interestChallengeCycle": "تحديات أعمال حقيقية",
+    "join.options.programme": "راعي برنامج",
+    "join.options.hiringEvent": "راعي فعالية توظيف",
+    "join.options.chapterPatron": "راعي فرع",
+    "join.options.scholarship": "راعي المنح",
+    "join.options.keynoteSeries": "راعي سلسلة المحاضرات",
+    "join.options.summit": "شريك الملتقى"
+  }
+}

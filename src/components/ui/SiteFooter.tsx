@@ -3,6 +3,7 @@ import { Link } from "@/i18n/routing";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { audienceNav, aboutNav, utilityNav } from "@/config/nav";
 import { site, isSet, pick } from "@/config/site";
+import { NewsletterForm } from "@/components/forms/NewsletterForm";
 
 /** Social links render only when the owner has supplied a URL. */
 function socialLinks() {
@@ -20,6 +21,7 @@ export async function SiteFooter({ locale }: { locale: string }) {
   const t = await getTranslations("nav");
   const tc = await getTranslations("common");
   const tf = await getTranslations("footer");
+  const tcontact = await getTranslations("contact");
   const socials = socialLinks();
 
   return (
@@ -64,6 +66,18 @@ export async function SiteFooter({ locale }: { locale: string }) {
 
         <div className="sitefooter__contact">
           <p className="sitefooter__contactline">{tc("contactLine")}</p>
+          {isSet(site.whatsappCommunity) && (
+            <p>
+              <a
+                className="navlink"
+                href={site.whatsappCommunity}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {tcontact("chat")}
+              </a>
+            </p>
+          )}
           {isSet(site.email) && (
             <p>
               <a className="navlink" href={`mailto:${site.email}`}>
@@ -83,6 +97,10 @@ export async function SiteFooter({ locale }: { locale: string }) {
             </ul>
           )}
         </div>
+      </div>
+
+      <div className="shell sitefooter__newsletter">
+        <NewsletterForm locale={locale} />
       </div>
 
       <hr className="hairline" />

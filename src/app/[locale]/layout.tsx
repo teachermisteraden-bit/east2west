@@ -22,9 +22,10 @@ import "@/styles/globals.css";
  * strings no client component reads. Pages are server-rendered, so only
  * namespaces used by a "use client" component belong here.
  *
- * Phase 3 adds "join" and "confirmation" when the form moves to the client.
+ * The form is a client component, so it needs its own strings, the confirmation
+ * card's, the share labels, and the programme names it offers as interests.
  */
-const CLIENT_NAMESPACES = ["common"] as const;
+const CLIENT_NAMESPACES = ["common", "join", "confirmation", "share", "programmes", "newsletter", "footer"] as const;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

@@ -7,6 +7,7 @@
 @import "../components/ui/chrome.css";
 @import "../components/ui/pageintro.css";
 @import "../components/ui/content.css";
+@import "../components/forms/forms.css";
 @import "../components/scenes/hero.css";
 
 /* Map the design tokens into Tailwind v4 so utilities and tokens can never drift.

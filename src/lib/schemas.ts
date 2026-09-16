@@ -46,7 +46,20 @@ export const graduateSchema = tracking.extend({
   university: z.string().trim().min(2, { message: "required" }),
   fieldOfStudy: z.string().trim().min(2, { message: "required" }),
   graduationYear: z.coerce.number({ error: "graduationYear" }).int().min(1970).max(2035, { message: "tooLong" }),
-  languages: z.array(z.string()).default([]),
+  // Free text on screen ("Arabic, English, Somali"), a list in storage.
+  // Accepts either shape so the client resolver and the server agree.
+  languages: z
+    .preprocess(
+      (value) =>
+        typeof value === "string"
+          ? value
+              .split(/[,\u060C]/)
+              .map((part) => part.trim())
+              .filter(Boolean)
+          : value,
+      z.array(z.string()),
+    )
+    .default([]),
   interests: z.array(z.enum(programmeKeys, { error: "required" })).min(1, { message: "required" }),
   womensCircle: z.boolean().optional(), // private; never displayed publicly
   linkedin: z.string().url({ message: "url" }).optional().or(z.literal("")),

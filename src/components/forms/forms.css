@@ -1,0 +1,262 @@
+/* The join form, its progress thread, and the invitation card. */
+
+.joinform { max-inline-size: 46rem; }
+
+.joinform__heading {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  margin: clamp(2rem, 5vh, 3rem) 0 clamp(1.5rem, 3vh, 2rem);
+}
+.joinform__heading:focus { outline: none; }
+.joinform__heading:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+
+.joinform__fields { display: grid; gap: clamp(1.5rem, 3vh, 2rem); }
+
+.joinform__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block-start: clamp(2rem, 4vh, 2.75rem);
+}
+.joinform__note { margin-block: 1.25rem 0; font-size: 0.8rem; color: var(--text-muted); }
+.joinform__formerror { margin-block-start: 1.5rem; }
+
+/* ------------------------------------------------------------ fields ----- */
+
+.field { display: grid; gap: 0.5rem; }
+.field--group { border: 0; padding: 0; margin: 0; }
+
+.field__label {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0;
+}
+.field__optional { color: var(--text-muted); font-weight: 400; }
+.field__hint { margin: 0; font-size: 0.85rem; color: var(--text-muted); }
+.field__hint--indent { margin-inline-start: 2rem; }
+
+.field__input {
+  inline-size: 100%;
+  padding: 0.85rem 1rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: var(--hairline) solid var(--line);
+  border-radius: var(--radius);
+  transition: border-color var(--dur-hover) var(--ease-standard);
+}
+.field__input:hover { border-color: var(--accent); }
+.field__input--area { resize: vertical; min-block-size: 7rem; }
+
+.field[data-invalid="true"] .field__input { border-color: #9B2C2C; }
+:root[data-theme="dark"] .field[data-invalid="true"] .field__input,
+.on-dark .field[data-invalid="true"] .field__input { border-color: #E08585; }
+
+/* Kind and specific, never a bare "invalid" (02 §4). */
+.field__error { margin: 0; font-size: 0.85rem; color: #9B2C2C; }
+:root[data-theme="dark"] .field__error { color: #E08585; }
+
+/* ----------------------------------------------------------- choices ----- */
+
+.choices { display: grid; gap: 0.75rem; margin-block-start: 0.35rem; }
+@media (min-width: 640px) { .choices { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.choice {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: var(--hairline) solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--dur-hover) var(--ease-standard);
+}
+.choice:hover { border-color: var(--accent); }
+.choice--block { grid-column: 1 / -1; }
+
+/* The native control stays in place and focusable; only its paint is replaced. */
+.choice__input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+}
+.choice__box {
+  flex: 0 0 auto;
+  inline-size: 18px;
+  block-size: 18px;
+  margin-block-start: 0.15rem;
+  border: var(--hairline) solid var(--text-muted);
+  border-radius: var(--radius);
+  display: grid;
+  place-items: center;
+  transition: border-color var(--dur-hover) var(--ease-standard),
+    background-color var(--dur-hover) var(--ease-standard);
+}
+.choice__input[type="radio"] + .choice__box { border-radius: 50%; }
+
+.choice__box::after {
+  content: "";
+  inline-size: 8px;
+  block-size: 8px;
+  background: var(--on-primary);
+  opacity: 0;
+  transition: opacity var(--dur-hover) var(--ease-standard);
+}
+.choice__input[type="radio"] + .choice__box::after { border-radius: 50%; }
+
+.choice__input:checked + .choice__box { background: var(--primary); border-color: var(--primary); }
+.choice__input:checked + .choice__box::after { opacity: 1; }
+
+.choice__input:focus-visible + .choice__box { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+.choice__label { font-size: 0.95rem; }
+
+/* The honeypot: out of sight, out of the tab order, invisible to readers. */
+.honeypot {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------ thread ----- */
+
+.thread { display: grid; gap: 0.85rem; }
+
+.thread__nodes {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.thread__node { display: flex; align-items: center; flex: 1 1 0; }
+.thread__node:last-child { flex: 0 0 auto; }
+
+.thread__dot {
+  flex: 0 0 auto;
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 50%;
+  border: var(--hairline) solid var(--line-accent);
+  background: transparent;
+  transition: background-color var(--dur-reveal) var(--ease-noble),
+    border-color var(--dur-reveal) var(--ease-noble);
+}
+.thread__line {
+  flex: 1 1 auto;
+  block-size: var(--hairline);
+  background: var(--line);
+  transition: background-color var(--dur-reveal) var(--ease-noble);
+}
+
+.thread__node[data-state="done"] .thread__dot,
+.thread__node[data-state="current"] .thread__dot {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+.thread__node[data-state="done"] .thread__line { background: var(--accent-strong); }
+/* The current node reads as the destination while you stand on it. */
+.thread__node[data-state="current"] .thread__dot { box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 22%, transparent); }
+
+.thread__label {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin: 0;
+  font-size: 0.85rem;
+}
+.thread__count { color: var(--text); font-weight: 500; }
+.thread__note { color: var(--accent-strong); }
+
+/* -------------------------------------------------------- invitation ----- */
+
+.invitecard { max-inline-size: 44rem; }
+
+.invitecard__frame {
+  position: relative;
+  border: var(--hairline) solid var(--line);
+  background: var(--surface);
+}
+.invitecard__inner {
+  position: absolute;
+  inset: 6px;
+  border: var(--hairline) solid var(--accent);
+  pointer-events: none;
+}
+.invitecard__body { padding: clamp(2rem, 5vw, 3.5rem); }
+
+.invitecard__eyebrow { margin: 0 0 clamp(1.5rem, 4vh, 2.5rem); color: var(--accent-strong); }
+.invitecard__title { font-size: var(--text-h2); margin: 0; max-inline-size: 16ch; }
+.invitecard__body { }
+.invitecard__body p { }
+.invitecard .invitecard__body > p { margin: 1.25rem 0 0; color: var(--text-muted); max-inline-size: 48ch; }
+
+.invitecard__date {
+  margin-block-start: 1rem !important;
+  font-family: var(--font-display-latin);
+  color: var(--accent-strong) !important;
+  font-variant-numeric: lining-nums;
+}
+
+.invitecard__rule { margin-block: clamp(2rem, 5vh, 2.75rem); }
+.invitecard__journey { margin-block-end: clamp(2rem, 5vh, 2.75rem); }
+
+.invitecard__nexttitle {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 500;
+  color: var(--text-muted);
+  margin: 0 0 0.85rem;
+}
+:root[data-script="latin"] .invitecard__nexttitle { text-transform: uppercase; letter-spacing: var(--tracking-label); }
+
+.invitecard__next { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.75rem; }
+.invitecard__invite { margin-block-start: clamp(2rem, 5vh, 2.75rem); }
+
+/* ------------------------------------------------------------- share ----- */
+
+.share { display: grid; gap: 1rem; }
+.share__url { margin: 0; }
+.share__url code {
+  display: block;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border: var(--hairline) dashed var(--line);
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+.share__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+
+/* -------------------------------------------------------- newsletter ----- */
+
+.sitefooter__newsletter { padding-block-end: clamp(2rem, 5vh, 3rem); }
+
+.newsletter { max-inline-size: 30rem; display: grid; gap: 0.6rem; }
+.newsletter__label { font-size: 0.9rem; color: var(--gold-light); }
+.newsletter__row { display: flex; gap: 0.75rem; align-items: stretch; }
+.newsletter__row .field__input {
+  background: transparent;
+  border-color: rgba(217, 184, 120, 0.35);
+  color: #ECE7DC;
+}
+.newsletter__row .btn { flex: 0 0 auto; }
+.newsletter__note { margin: 0; font-size: 0.78rem; color: #A9ADA6; }
+.newsletter__done { margin: 0; color: var(--gold-light); max-inline-size: 34rem; }
+
+.events__calendar { margin: 0.75rem 0 0; font-size: 0.9rem; }

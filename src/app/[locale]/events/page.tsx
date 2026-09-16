@@ -66,6 +66,11 @@ export default async function EventsPage({ params }: Props) {
                     {e.city[locale as "en" | "ar"]}
                     {e.venue ? ` — ${e.venue[locale as "en" | "ar"]}` : ""}
                   </p>
+                  <p className="events__calendar">
+                    <a className="navlink" href={`/${locale}/events/${e.slug}/calendar.ics`} download>
+                      {t("addToCalendar")}
+                    </a>
+                  </p>
                 </Frame>
               );
             })}

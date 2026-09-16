@@ -6,6 +6,11 @@
  * on first paint, and sums their gzipped size. That is what the visitor's phone
  * downloads, so it is measured rather than inferred from a manifest.
  *
+ * Dynamic routes are never written to disk, so they are invisible to a purely
+ * static scan — and /join, which carries the form, is exactly such a route and
+ * the heaviest one. Set BUDGET_BASE_URL to a running server and those routes are
+ * fetched and measured too.
+ *
  * Run after `next build`.
  */
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
@@ -42,6 +47,23 @@ function gzippedKB(urlPath) {
   return size;
 }
 
+/** Routes that render on demand, so `next build` leaves no HTML to inspect. */
+const DYNAMIC_ROUTES = [
+  "/en/join?type=graduate",
+  "/ar/join?type=graduate",
+  "/en/join?type=sponsor",
+];
+
+function measure(html) {
+  const tags = [...html.matchAll(/<script([^>]*)\ssrc="([^"]+)"([^>]*)>/g)];
+  const scripts = [
+    ...new Set(
+      tags.filter(([, before, , after]) => !/nomodule/i.test(before + after)).map(([, , src]) => src),
+    ),
+  ].filter((s) => s.startsWith("/_next/"));
+  return { kb: scripts.reduce((sum, s) => sum + gzippedKB(s), 0), count: scripts.length };
+}
+
 const rows = htmlFiles(appDir).map((file) => {
   const html = readFileSync(file, "utf8");
   // `nomodule` scripts are the legacy polyfill bundle. Browsers that support ES
@@ -59,6 +81,23 @@ const rows = htmlFiles(appDir).map((file) => {
   const route = "/" + relative(appDir, file).replace(/\.html$/, "").replace(/\/index$/, "");
   return { route, kb, count: scripts.length };
 });
+
+const base = process.env.BUDGET_BASE_URL;
+if (base) {
+  for (const route of DYNAMIC_ROUTES) {
+    try {
+      const response = await fetch(new URL(route, base));
+      const html = await response.text();
+      const { kb, count } = measure(html);
+      rows.push({ route: `${route} (dynamic)`, kb, count });
+    } catch (error) {
+      console.error(`could not measure ${route}: ${error.message}`);
+      process.exitCode = 1;
+    }
+  }
+} else {
+  console.log("BUDGET_BASE_URL is not set, so dynamic routes (including /join) were not measured.\n");
+}
 
 rows.sort((a, b) => b.kb - a.kb);
 

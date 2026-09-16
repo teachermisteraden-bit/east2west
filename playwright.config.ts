@@ -3,6 +3,7 @@ import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const PORT = Number(process.env.E2E_PORT ?? 3999);
+const STUB_PORT = Number(process.env.STUB_PORT ?? 4999);
 const baseURL = `http://localhost:${PORT}`;
 
 /**
@@ -51,10 +52,28 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" },
     },
   ],
-  webServer: {
-    command: `npx next start -p ${PORT}`,
-    url: baseURL,
-    reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
-  },
+  webServer: [
+    {
+      // Stands in for Supabase's REST API so the real submission path can be
+      // exercised end to end. See tests/e2e/fixtures/supabase-stub.mjs.
+      command: "node tests/e2e/fixtures/supabase-stub.mjs",
+      url: `http://localhost:${STUB_PORT}/__stub/received`,
+      reuseExistingServer: !process.env.CI,
+      timeout: 30_000,
+    },
+    {
+      command: `npx next start -p ${PORT}`,
+      url: baseURL,
+      reuseExistingServer: false,
+      timeout: 120_000,
+      env: {
+        NEXT_PUBLIC_SUPABASE_URL: `http://localhost:${STUB_PORT}`,
+        SUPABASE_SERVICE_ROLE_KEY: "stub-service-role-key",
+        RATE_LIMIT_SALT: "test-salt",
+        RESPONSE_TIME_EN: "3 working days",
+        RESPONSE_TIME_AR: "3 أيام عمل",
+        SITE_URL: baseURL,
+      },
+    },
+  ],
 });

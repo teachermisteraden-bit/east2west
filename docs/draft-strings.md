@@ -14,13 +14,31 @@ review before launch. Delete the `_draft` sibling once approved.
 | `join.errors.url` | Please enter a valid link, starting with https:// | يرجى إدخال رابط صحيح يبدأ بـ ‎https:// | The LinkedIn field could only fail with English Zod prose |
 | `join.errors.tooLong` | Please shorten this a little so it fits | يرجى اختصار النص قليلًا ليتناسب مع المساحة | Free-text length limits had no message key |
 
-## Still to request
+## Phase 3
 
-These are needed for the five form modes in Phase 3. Two can be sourced from
-copy the owner has already approved; one genuinely needs new wording.
+Re-keyed from copy the owner already approved — the wording is unchanged, only
+the key is new, so these carry **no** `_draft` marker:
 
-| Need | Proposal |
+| Keys | Sourced from |
 |---|---|
-| University `interest` options (campus chapter / training / hiring event / challenge cycle) | Re-key from the approved `universities.bring` entries, which already name all four in both languages. No new wording |
-| Sponsorship `options` (six) | Re-key from the approved `sponsors.options` array, which names all six in both languages. No new wording |
-| Chapter `coDirector` (yes / no / not yet) | Genuinely new. Will be drafted and flagged here |
+| `join.options.interest*` (4) | `universities.bring` — the same four things, already named in both languages |
+| `join.options.{programme,hiringEvent,chapterPatron,scholarship,keynoteSeries,summit}` | `sponsors.options` — the six options, in order, already named in both languages |
+
+Genuinely new, and flagged for review:
+
+| Key | English | Arabic |
+|---|---|---|
+| `join.options.coDirectorYes/No/NotYet` | Yes / No / Not yet, but I am looking | نعم / لا / ليس بعد، وأبحث عن شريك |
+| `join.typeNoun.*` (5) | membership application, partnership enquiry, sponsorship enquiry, collaboration enquiry, chapter enquiry | طلب العضوية، طلب الشراكة، طلب الرعاية، طلب التعاون، طلب إطلاق الفرع |
+| `join.optional` | Optional | اختياري |
+| `join.selectAll` | Select all that apply | اختر كل ما ينطبق |
+| `join.submitting` | Sending… | جارٍ الإرسال… |
+| `join.draftSaved` | Your answers are saved on this device. | حُفظت إجاباتك على هذا الجهاز. |
+| `join.stepsTitle` | Your application | طلبك |
+| `share.*` (6) | Share, WhatsApp, LinkedIn, X, Copy link, Link copied | شارك، واتساب، لينكدإن، إكس، انسخ الرابط، تم نسخ الرابط |
+| `newsletter.*` (6) | Subscribe, and the four confirmation states | اشترك، وحالات التأكيد الأربع |
+| `email.subject/greeting/signoff` | We have received your {type} / Hello {name}, / With thanks, | استلمنا {type} / مرحبًا {name}، / مع الشكر، |
+
+The Arabic above was written, not machine-translated. It still needs a native
+speaker's review before launch — particularly `join.options.coDirectorNotYet`
+and the `typeNoun` phrases, which have to read naturally inside a sentence.
