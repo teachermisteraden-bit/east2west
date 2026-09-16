@@ -1,0 +1,44 @@
+.pageintro {
+  padding-block-start: clamp(3rem, 9vh, 7rem);
+}
+.pageintro__eyebrow { margin: 0 0 1.5rem; }
+.pageintro__title {
+  font-size: var(--text-h1);
+  max-inline-size: 18ch;
+  margin: 0;
+}
+:root[data-script="arabic"] .pageintro__title { max-inline-size: 22ch; }
+.pageintro__subtitle {
+  margin-block: 1.75rem 0;
+  color: var(--text-muted);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+}
+.pageintro + * { padding-block-start: var(--section-y); }
+.pageintro .hairline { margin-block-start: clamp(3rem, 8vh, 6rem); }
+
+/* Phase 1 placeholder marker. Removed as each page is built in Phase 2. */
+.stub {
+  padding-block: clamp(2rem, 6vh, 4rem);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.stub__badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border: var(--hairline) dashed var(--line);
+  border-radius: var(--radius);
+}
+
+/* 404 */
+.notfound {
+  display: grid;
+  align-content: center;
+  min-block-size: 62svh;
+  padding-block: var(--section-y);
+}
+.notfound__title {
+  font-size: var(--text-h1);
+  max-inline-size: 16ch;
+  margin: 0;
+}
+.notfound__cta { margin-block-start: clamp(2rem, 5vh, 3rem); }

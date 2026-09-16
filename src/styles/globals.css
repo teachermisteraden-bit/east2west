@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Component styles. Kept beside their components; collected here so the layout
+   imports one stylesheet and the cascade order stays predictable. */
+@import "../components/brand/wordmark.css";
+@import "../components/ui/chrome.css";
+@import "../components/ui/pageintro.css";
+@import "../components/scenes/hero.css";
+
+/* Map the design tokens into Tailwind v4 so utilities and tokens can never drift.
+   `inline` keeps the var() reference, so a brand/ swap flows through automatically. */
+@theme inline {
+  --color-obsidian: var(--obsidian);
+  --color-night: var(--night);
+  --color-palm: var(--palm);
+  --color-palm-soft: var(--palm-soft);
+  --color-gold: var(--antique-gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-text: var(--gold-text);
+  --color-ivory: var(--ivory);
+  --color-stone: var(--stone);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-dawn: var(--dawn);
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-line: var(--line);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-accent: var(--accent);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+
+  --radius-noble: var(--radius);
+  --ease-noble: var(--ease-noble);
+  --ease-standard: var(--ease-standard);
+}
+
+/* ---------------------------------------------------------------- base ---- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Native only. No smooth-scroll library anywhere on this site. */
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Never let a scene cause sideways travel. */
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: var(--leading-display);
+  font-weight: 400;
+  text-wrap: pretty;
+  margin: 0;
+}
+
+p { text-wrap: pretty; }
+
+/* Arabic is never justified and never letter-spaced (01 §7). */
+:root[data-script="arabic"] :is(p, li, h1, h2, h3, h4, blockquote) {
+  text-align: start;
+  letter-spacing: normal !important;
+}
+
+a { color: inherit; }
+
+img, svg, video { display: block; max-width: 100%; }
+
+/* ------------------------------------------------------------ a11y ------- */
+
+/* 2px gold ring at 3px offset. --focus resolves to --gold-deep on light surfaces
+   and --gold-light on dark, so it clears 3:1 on every surface we ship. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: var(--gutter);
+  inset-block-start: -100%;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--surface);
+  color: var(--text);
+  border: var(--hairline) solid var(--focus);
+  text-decoration: none;
+}
+.skip-link:focus { inset-block-start: 1rem; }
+
+/* ------------------------------------------------------- the compass ----- */
+
+/*
+ * The sun's path is geography, not reading order. Dawn rises in the east (right
+ * on a north-up map) and dusk sets in the west, in BOTH languages. Everything
+ * else mirrors through logical properties; these opt out deliberately.
+ * Applies to: the hero light, the two shores, the Kingdom map, the dusk close.
+ */
+.compass-fixed {
+  direction: ltr;
+}
+.compass-fixed :is(p, h1, h2, h3, h4, li, span, a, button) {
+  /* Text inside the compass layer still reads in the document's own direction. */
+  direction: inherit;
+}
+:root[dir="rtl"] .compass-fixed > * {
+  direction: rtl;
+}
+
+/* ------------------------------------------------- page transitions ------ */
+
+/* Native cross-document View Transitions: a slow ivory veil cross-fade.
+   Browsers without support navigate normally — no JavaScript involved. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-page);
+  animation-timing-function: var(--ease-noble);
+}
+
+/* ------------------------------------------------------------ motion ----- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  @view-transition { navigation: none; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------ layout ----- */
+
+.shell {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.measure { max-width: var(--measure); }
+
+.section { padding-block: var(--section-y); }
+
+.hairline {
+  border: 0;
+  border-block-start: var(--hairline) solid var(--line);
+  margin: 0;
+}
+
+/* Eyebrow labels: tracked small caps in Latin, weight-only in Arabic (never
+   letter-spaced), per 01 §2 and §7. */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+:root[data-script="latin"] .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+}
+:root[data-script="arabic"] .eyebrow {
+  font-weight: 600;
+  font-size: calc(var(--text-label) + 2px);
+}

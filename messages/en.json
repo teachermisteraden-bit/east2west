@@ -14,7 +14,9 @@
     "languageSwitch": "العربية",
     "learnMore": "Learn more",
     "comingSoon": "Coming soon",
-    "foundingStage": "We are in our founding stage. Everything you see here is being built with our first members and partners."
+    "foundingStage": "We are in our founding stage. Everything you see here is being built with our first members and partners.",
+    "themeToggle": "Switch theme",
+    "themeToggle_draft": true
   },
   "nav": {
     "home": "Home",
@@ -661,7 +663,11 @@
       "phone": "Please enter a valid phone number, for example +966 5X XXX XXXX.",
       "graduationYear": "Please add your graduation year so we can match you to the right circle.",
       "consent": "Please tick the box so we can respond to you.",
-      "generic": "Something went wrong on our side. Your answers are saved; please try again."
+      "generic": "Something went wrong on our side. Your answers are saved; please try again.",
+      "url": "Please enter a valid link, starting with https://",
+      "url_draft": true,
+      "tooLong": "Please shorten this a little so it fits.",
+      "tooLong_draft": true
     }
   },
   "confirmation": {

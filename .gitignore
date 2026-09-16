@@ -9,3 +9,4 @@ build/
 *.tsbuildinfo
 playwright-report/
 test-results/
+shot.tmp.mjs

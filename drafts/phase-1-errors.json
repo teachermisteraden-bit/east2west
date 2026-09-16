@@ -1,0 +1,10 @@
+{
+  "en": {
+    "join.errors.url": "Please enter a valid link, starting with https://",
+    "join.errors.tooLong": "Please shorten this a little so it fits."
+  },
+  "ar": {
+    "join.errors.url": "يرجى إدخال رابط صحيح يبدأ بـ ‎https://",
+    "join.errors.tooLong": "يرجى اختصار النص قليلًا ليتناسب مع المساحة."
+  }
+}

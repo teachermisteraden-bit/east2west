@@ -1,0 +1,143 @@
+/* PROVISIONAL TOKENS — replace with the brand/ export from Claude Design when available.
+   Every colour, font, radius and motion value on the site must come from these variables,
+   so the brand swap is a single file.
+
+   Adapted from starters/src/styles/tokens.css. Three tokens were added after measuring
+   the palette against WCAG 2.2; see docs/step-0-review.md §B1–B3. The designed
+   --antique-gold is unchanged and still carries every decorative hairline. */
+:root {
+  /* colour */
+  --obsidian: #101315;
+  --night: #1A2124;
+  --palm: #1F5A45;
+  --palm-soft: #6FA58B;
+  --antique-gold: #B0873F;
+  --gold-light: #D9B878;
+  --ivory: #F5F1E8;
+  --stone: #E6E0D3;
+  --ink: #16191A;
+  --ink-muted: #5B605C;
+  --dawn: #E9C9A0;
+
+  /* Gold that carries meaning on light surfaces.
+     --antique-gold measures 2.92:1 on ivory and 2.50:1 on stone, below the 3:1 that
+     WCAG 2.2 SC 1.4.11 requires of focus rings and informational borders.
+     --gold-deep holds >=3.32:1 and --gold-text >=4.59:1 across ivory, surface and stone. */
+  --gold-deep: #967336;
+  --gold-text: #7B5E2C;
+
+  /* semantic (light) */
+  --bg: var(--ivory);
+  --surface: #FBF9F4;
+  --text: var(--ink);
+  --text-muted: var(--ink-muted);
+  --line: var(--stone);
+  --line-accent: rgba(176, 135, 63, 0.35);
+  --primary: var(--palm);
+  --on-primary: var(--ivory);
+  --accent: var(--antique-gold);
+  --accent-strong: var(--gold-text);
+  --focus: var(--gold-deep);
+  --btn-edge: transparent;
+
+  /* type */
+  --font-display-latin: var(--font-bodoni), "Times New Roman", serif;
+  --font-display-arabic: var(--font-amiri), "Traditional Arabic", serif;
+  --font-body-latin: var(--font-plex), system-ui, sans-serif;
+  --font-body-arabic: var(--font-plex-arabic), system-ui, sans-serif;
+  --text-hero: clamp(48px, 8vw, 128px);
+  --text-h1: clamp(40px, 5.5vw, 84px);
+  --text-h2: clamp(32px, 4vw, 56px);
+  --text-h3: clamp(22px, 2.2vw, 30px);
+  --text-body: clamp(16px, 1.1vw, 18px);
+  --text-label: 12px;
+  --leading-display-latin: 1.05;
+  --leading-display-arabic: 1.4;
+  --leading-body-latin: 1.6;
+  --leading-body-arabic: 1.85;
+  --tracking-label: 0.18em;
+
+  /* space and shape */
+  --content-max: 1320px;
+  --measure: 66ch;
+  --section-y: clamp(72px, 14vh, 200px);
+  --gutter: clamp(20px, 5vw, 64px);
+  --radius: 2px;
+  --hairline: 1px;
+
+  /* motion */
+  --ease-noble: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-hover: 400ms;
+  --dur-reveal: 900ms;
+  --dur-page: 700ms;
+  --stagger: 90ms;
+  --rise: 20px;
+}
+
+/* Dark surfaces, whether that is the theme or a dark band inside a light page.
+   .on-dark lets the obsidian hero sit in a light-themed document and still get
+   accessible controls: --palm measures 2.31:1 on obsidian, --palm-soft 6.60:1. */
+:root[data-theme="dark"],
+.on-dark {
+  --bg: var(--obsidian);
+  --surface: var(--night);
+  --text: #ECE7DC;
+  --text-muted: #A9ADA6;
+  --line: rgba(217, 184, 120, 0.25);
+  --line-accent: rgba(217, 184, 120, 0.45);
+  --primary: var(--palm);
+  --on-primary: var(--ivory);
+  --accent: var(--gold-light);
+  --accent-strong: var(--gold-light);
+  --focus: var(--gold-light);
+  /* --palm sits at 2.31:1 against obsidian, so the fill alone cannot mark the
+     control's edge. A gold hairline does it at 9.84:1, and keeps the deep green. */
+  --btn-edge: var(--gold-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--obsidian);
+    --surface: var(--night);
+    --text: #ECE7DC;
+    --text-muted: #A9ADA6;
+    --line: rgba(217, 184, 120, 0.25);
+    --line-accent: rgba(217, 184, 120, 0.45);
+    --primary: var(--palm);
+    --on-primary: var(--ivory);
+    --accent: var(--gold-light);
+    --accent-strong: var(--gold-light);
+    --focus: var(--gold-light);
+    --btn-edge: var(--gold-light);
+  }
+}
+
+/* Script-driven typography. Driven by [data-script] rather than [lang] so that a
+   new locale only has to declare its script in the locale registry. */
+:root[data-script="arabic"] {
+  --font-display: var(--font-display-arabic);
+  --font-body: var(--font-body-arabic);
+  --leading-display: var(--leading-display-arabic);
+  --leading-body: var(--leading-body-arabic);
+  /* Arabic display sizes run ~10% smaller with more leading (01 §7). */
+  --text-hero: clamp(40px, 6.8vw, 112px);
+  --text-h1: clamp(34px, 4.8vw, 74px);
+  --text-h2: clamp(28px, 3.5vw, 50px);
+}
+:root[data-script="latin"] {
+  --font-display: var(--font-display-latin);
+  --font-body: var(--font-body-latin);
+  --leading-display: var(--leading-display-latin);
+  --leading-body: var(--leading-body-latin);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-hover: 0ms;
+    --dur-reveal: 0ms;
+    --dur-page: 0ms;
+    --stagger: 0ms;
+    --rise: 0px;
+  }
+}

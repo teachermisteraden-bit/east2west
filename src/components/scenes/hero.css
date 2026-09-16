@@ -1,0 +1,109 @@
+/* Scene 0 — Pre-dawn. */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  background: var(--obsidian);
+  color: #ECE7DC;
+  min-block-size: min(88svh, 820px);
+  display: grid;
+  align-content: center;
+  overflow: hidden;
+  padding-block: clamp(2.5rem, 7vh, 5rem) clamp(4.5rem, 10vh, 7rem);
+}
+
+/* The compass layer: geography, so it never mirrors with the text. */
+.hero__sky {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.lattice {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  color: var(--gold-light);
+  opacity: 0.09;
+}
+
+/* Dawn rising from the EASTERN edge — right on a north-up map, both languages. */
+.hero__dawn {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 100% 78%, rgba(233, 201, 160, 0.42) 0%, rgba(233, 201, 160, 0.14) 32%, transparent 66%),
+    radial-gradient(80% 60% at 88% 92%, rgba(217, 184, 120, 0.3) 0%, transparent 60%);
+  animation: dawn-rise 1600ms var(--ease-noble) both;
+}
+
+.hero__horizon {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 9%;
+  block-size: var(--hairline);
+  background: linear-gradient(to right, transparent, rgba(217, 184, 120, 0.55) 45%, rgba(217, 184, 120, 0.2));
+}
+
+@keyframes dawn-rise {
+  from { opacity: 0; transform: translateY(6%); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero__content { position: relative; }
+
+.hero__eyebrow { color: var(--gold-light); margin: 0 0 clamp(1.5rem, 4vh, 2.5rem); }
+
+.hero__title {
+  font-size: var(--text-hero);
+  max-inline-size: 14ch;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+:root[data-script="arabic"] .hero__title { max-inline-size: 19ch; letter-spacing: normal; }
+
+.hero__subtitle {
+  margin-block: clamp(1.25rem, 2.4vh, 1.85rem) 0;
+  color: #C9CCC6;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 2rem;
+  margin-block-start: clamp(1.75rem, 3.6vh, 2.5rem);
+}
+.hero__secondary { color: #C9CCC6; font-size: 0.95rem; }
+
+.hero__cue {
+  position: absolute;
+  inset-block-end: clamp(1.5rem, 4vh, 3rem);
+  /* Physical left = west. Part of the compass, so it does not mirror. */
+  left: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: #8E938C;
+  font-size: var(--text-label);
+}
+:root[data-script="latin"] .hero__cue { text-transform: uppercase; letter-spacing: var(--tracking-label); }
+
+.hero__cueline {
+  inline-size: var(--hairline);
+  block-size: 56px;
+  background: linear-gradient(to bottom, var(--gold-light), transparent);
+  transform-origin: top;
+  animation: cue-grow 2.4s var(--ease-noble) 600ms both;
+}
+@keyframes cue-grow {
+  from { transform: scaleY(0); opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__dawn,
+  .hero__cueline { animation: none; }
+}

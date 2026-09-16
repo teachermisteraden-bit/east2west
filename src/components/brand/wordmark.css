@@ -1,0 +1,36 @@
+/* Styles for the temporary wordmark. Deleted with the component at the brand swap. */
+.wordmark {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(4px * var(--wm-scale, 1));
+  line-height: 1;
+  /* The lockup is a mark, not prose: it never mirrors. */
+  direction: ltr;
+  text-align: start;
+}
+
+.wordmark__latin {
+  font-family: var(--font-display-latin);
+  font-size: calc(21px * var(--wm-scale, 1));
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.wordmark__rule {
+  display: block;
+  width: 100%;
+  min-width: calc(80px * var(--wm-scale, 1));
+  height: var(--hairline);
+  background: var(--line-accent);
+}
+
+.wordmark__arabic {
+  font-family: var(--font-display-arabic);
+  font-size: calc(15px * var(--wm-scale, 1));
+  font-weight: 400;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
