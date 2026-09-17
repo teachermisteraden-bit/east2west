@@ -19,6 +19,7 @@ import {
 } from "@/lib/form-steps";
 import { readTracking } from "@/lib/tracking";
 import { submitJoin, type SubmitResult } from "@/app/actions/submit";
+import { track } from "@/lib/analytics";
 import { ProgressThread } from "./ProgressThread";
 import { TextField, TextArea, ChoiceGroup, CheckField, Honeypot } from "./Fields";
 import { InvitationCard } from "./InvitationCard";
@@ -114,6 +115,9 @@ export function JoinForm({
     for (const [key, value] of Object.entries(tracking)) {
       if (value) form.setValue(key, value);
     }
+    // Reaching the form is the start of the funnel. The event records the mode
+    // and the campaign, never anything typed.
+    track("Form Start", { mode, campaign: tracking.campaign ?? "none" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -121,7 +125,10 @@ export function JoinForm({
     const fields = steps[stepIndex] ?? [];
     const valid = await form.trigger(fields);
     if (!valid) return;
-    setStepIndex((i) => Math.min(i + 1, steps.length - 1));
+    const reached = Math.min(stepIndex + 1, steps.length - 1);
+    setStepIndex(reached);
+    // Which step people reach is how form abandonment is read (02 §5).
+    track("Form Step", { mode, step: reached + 2, of: total });
     headingRef.current?.focus();
   }
 
@@ -142,13 +149,16 @@ export function JoinForm({
           // Nothing to clean up.
         }
         setResult(response);
+        track("Form Submit", { mode });
       } else if (response.error === "validation" && response.fieldErrors) {
         for (const [field, message] of Object.entries(response.fieldErrors)) {
           form.setError(field, { message });
         }
         setFormError(t("errors.generic"));
+        track("Form Error", { mode, reason: "validation" });
       } else {
         setFormError(t("errors.generic"));
+        track("Form Error", { mode, reason: response.error });
       }
     } catch {
       setFormError(t("errors.generic"));

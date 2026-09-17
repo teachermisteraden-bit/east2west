@@ -12,6 +12,7 @@ import { SiteHeader } from "@/components/ui/SiteHeader";
 import { SiteFooter } from "@/components/ui/SiteFooter";
 import { ThemeScript } from "@/components/ui/ThemeScript";
 import { RevealScript } from "@/components/scenes/RevealScript";
+import { Analytics } from "@/components/ui/Analytics";
 
 import "@/styles/globals.css";
 
@@ -103,6 +104,7 @@ export default async function LocaleLayout({
           <SiteHeader locale={locale} />
           <main id="main">{children}</main>
           <SiteFooter locale={locale} />
+          <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>

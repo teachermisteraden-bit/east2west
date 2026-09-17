@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { track, tagEvent } from "@/lib/analytics";
 
 /**
  * Sharing. Native share where the device offers it, then WhatsApp, LinkedIn and
@@ -21,6 +22,7 @@ export function ShareRow({ url, title }: { url: string; title: string }) {
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
+      track("Share", { via: "copy" });
       window.setTimeout(() => setCopied(false), 2500);
     } catch {
       // Clipboard blocked: the URL is visible beside the button anyway.
@@ -31,6 +33,7 @@ export function ShareRow({ url, title }: { url: string; title: string }) {
     if (typeof navigator !== "undefined" && "share" in navigator) {
       try {
         await navigator.share({ title, url });
+        track("Share", { via: "native" });
         return true;
       } catch {
         // Cancelled or unsupported: fall through to the explicit links.
@@ -57,7 +60,7 @@ export function ShareRow({ url, title }: { url: string; title: string }) {
         </li>
         <li>
           <a
-            className="navlink"
+            className={`navlink ${tagEvent("Share", { via: "whatsapp" })}`}
             href={`https://wa.me/?text=${encodedTitle}%20${encoded}`}
             rel="noopener noreferrer"
             target="_blank"
@@ -67,7 +70,7 @@ export function ShareRow({ url, title }: { url: string; title: string }) {
         </li>
         <li>
           <a
-            className="navlink"
+            className={`navlink ${tagEvent("Share", { via: "linkedin" })}`}
             href={`https://www.linkedin.com/sharing/share-offsite/?url=${encoded}`}
             rel="noopener noreferrer"
             target="_blank"
@@ -77,7 +80,7 @@ export function ShareRow({ url, title }: { url: string; title: string }) {
         </li>
         <li>
           <a
-            className="navlink"
+            className={`navlink ${tagEvent("Share", { via: "x" })}`}
             href={`https://twitter.com/intent/tweet?url=${encoded}&text=${encodedTitle}`}
             rel="noopener noreferrer"
             target="_blank"

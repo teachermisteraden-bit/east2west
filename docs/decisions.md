@@ -28,10 +28,16 @@ the architectural consequences of that roadmap.
    Each addition gets a `<key>_draft: true` sibling in both locale files and is
    listed in `docs/draft-strings.md` for review. Nothing is machine-translated.
 
-4. **`/admin` — password gate now, behind one seam.** The check will live in a
-   single `requireAdmin()` so moving to Supabase Auth with an email allowlist is a
-   one-file change. My recommendation stands: move before real submissions arrive.
-   A shared password is weak protection for personal data under PDPL.
+4. **`/admin` — password gate now, behind one seam.** Built in Phase 5 as
+   `src/lib/admin-auth.ts`: a timing-safe password check over an HMAC-signed,
+   httpOnly session cookie, rate limited, `noindex`, absent from the sitemap, and
+   scoped to `/admin` so it is never sent with an ordinary page request. Every
+   mutation re-checks the session rather than trusting the page that called it.
+   Moving to Supabase Auth with an email allowlist means changing that one file.
+
+   **The recommendation stands: move before real applications arrive.** A shared
+   password is weak protection for other people's personal data under PDPL, and
+   the CSV export is the whole database in a single click.
 
 5. **Posters — still needed as files.** Open Graph images will be generated from
    the tokens and approved copy, and the posters swapped in when they arrive.

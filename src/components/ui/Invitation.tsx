@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/routing";
 import { Frame } from "./Frame";
+import { tagEvent } from "@/lib/analytics";
 
 /**
  * The invitation that closes every audience page: one primary action, a warm
@@ -46,7 +47,12 @@ export function Invitation({
                   {microYes}
                 </Link>
               ) : (
-                <a className="navlink" href={microYesHref} rel="noopener noreferrer" target="_blank">
+                <a
+                  className={`navlink ${tagEvent("WhatsApp Click")}`}
+                  href={microYesHref}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   {microYes}
                 </a>
               )}

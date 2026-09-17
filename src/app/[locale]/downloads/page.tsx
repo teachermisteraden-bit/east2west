@@ -5,6 +5,7 @@ import { PageIntro } from "@/components/ui/PageIntro";
 import { Section } from "@/components/ui/Section";
 import { Frame } from "@/components/ui/Frame";
 import { downloads } from "@/content/downloads";
+import { tagEvent } from "@/lib/analytics";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -36,7 +37,7 @@ export default async function DownloadsPage({ params }: Props) {
               <Frame as="li" key={d.href} interactive>
                 <h2 className="cardgrid__name">{t(d.key)}</h2>
                 <p className="cardgrid__body">
-                  <a className="navlink" href={d.href} download>
+                  <a className={`navlink ${tagEvent("Download", { file: d.key })}`} href={d.href} download>
                     {t(d.key)}
                   </a>
                   {d.sizeLabel ? ` · ${d.sizeLabel}` : ""}

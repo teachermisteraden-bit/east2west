@@ -83,6 +83,13 @@ without JavaScript and adds nothing to the bundle.
 | Cultural care | The lattice is a pattern, not a building; the map draws no neighbours and asserts no disputed border; the outline is credited | `scenes/Lattice.tsx`, `KingdomMap.tsx` | No mosque imagery, no emblem, no flag |
 | Truthful geography | Dawn rises east and dusk sets west in both languages, via the compass layer | `.compass-fixed` | Tested in both locales |
 
-## Still to come
+## Phase 5 — Measurement
 
-- Phase 5: measurement, with no dark patterns in what is measured.
+| Principle | Where it lives | File | Limit held |
+|---|---|---|---|
+| Measure the funnel, not the person | Door click, form start, each step, submit, WhatsApp, download, share, newsletter | `src/lib/analytics.ts` | Events carry the step and the campaign, never anything typed into a field |
+| No tracking before consent | Plausible is cookieless and loads only when ANALYTICS_ENABLED is true | `components/ui/Analytics.tsx` | Off by default. Nothing is requested at all while the flag is off — tested |
+| Zero-cost measurement | Doors, downloads and share links report themselves through class names | `tagEvent()` | No JavaScript added to measure a click |
+| Abandonment as a guardrail | "Form Step" records which step was reached | `forms/JoinForm.tsx` | Used to find where the form is too long, not to chase people |
+| An honest north star | Opportunities created is typed in by the owner | `app/admin/opportunities/page.tsx` | A job offer happens in a room, not a browser. It cannot be derived from traffic, so it is never replaced by a proxy for clicks. It reads zero until something real happens |
+| Protecting what was entrusted | One `requireAdmin` seam; the CSV export answers 404 when signed out | `lib/admin-auth.ts`, `admin/export.csv/route.ts` | Tested: nothing behind the boundary is reachable without a session, and the admin is absent from robots and the sitemap |

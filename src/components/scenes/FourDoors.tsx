@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { Reveal } from "./Reveal";
+import { tagEvent } from "@/lib/analytics";
 
 const DOORS = [
   { key: "graduates", href: "/graduates" },
@@ -38,7 +39,7 @@ export async function FourDoors() {
             <Reveal as="li" className="doors__item" key={door.key} delay={i}>
               <Link
                 href={door.href}
-                className="doors__card"
+                className={`doors__card ${tagEvent("Door Click", { door: door.key })}`}
                 style={{ viewTransitionName: `door-${door.key}` } as React.CSSProperties}
               >
                 <span className="doors__frame" aria-hidden="true">

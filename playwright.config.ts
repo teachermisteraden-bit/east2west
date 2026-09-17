@@ -70,6 +70,8 @@ export default defineConfig({
         NEXT_PUBLIC_SUPABASE_URL: `http://localhost:${STUB_PORT}`,
         SUPABASE_SERVICE_ROLE_KEY: "stub-service-role-key",
         RATE_LIMIT_SALT: "test-salt",
+        ADMIN_PASSWORD: "e2e-admin-password",
+        ADMIN_SESSION_SECRET: "e2e-admin-session-secret-value",
         RESPONSE_TIME_EN: "3 working days",
         RESPONSE_TIME_AR: "3 أيام عمل",
         SITE_URL: baseURL,

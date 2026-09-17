@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { subscribe } from "@/app/actions/newsletter";
+import { track } from "@/lib/analytics";
 
 /**
  * Double opt-in signup.
@@ -25,6 +26,7 @@ export function NewsletterForm({ locale }: { locale: string }) {
     setState("sending");
     const result = await subscribe({ email, locale, website });
     setState(result.ok ? "done" : "error");
+    if (result.ok) track("Newsletter Signup", { locale });
   }
 
   if (state === "done") {

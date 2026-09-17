@@ -1,0 +1,67 @@
+/* The owner's workspace. Plain, quick and legible — not the noble register. */
+
+.admin { min-block-size: 100vh; background: var(--bg); color: var(--text); }
+
+.admin__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  padding: 1rem clamp(1rem, 4vw, 2.5rem);
+  border-block-end: var(--hairline) solid var(--line);
+  background: var(--surface);
+}
+.admin__brand { font-family: var(--font-display); text-decoration: none; }
+.admin__nav { display: flex; gap: 1.5rem; margin-inline-start: auto; font-size: 0.9rem; }
+.admin__nav a { color: var(--text-muted); text-decoration: none; }
+.admin__nav a:hover { color: var(--text); }
+
+.admin__main { padding: clamp(1.5rem, 4vw, 3rem); max-inline-size: 1600px; margin-inline: auto; }
+
+.admin__head { display: flex; align-items: center; gap: 1.5rem; margin-block-end: 2rem; }
+.admin__head h1 { font-size: 1.75rem; margin: 0; }
+.admin__head form { margin-inline-start: auto; }
+
+.admin__warn {
+  padding: 1rem 1.25rem;
+  border: var(--hairline) solid #9B2C2C;
+  color: #9B2C2C;
+  margin-block-end: 2rem;
+}
+.admin__empty { color: var(--text-muted); padding-block: 2rem; }
+.admin__note { margin-block-start: 2rem; color: var(--text-muted); font-size: 0.8rem; max-inline-size: 42ch; }
+
+.admin__summaries {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-block-end: 2.5rem;
+}
+.admin__summaries h2 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted); margin: 0 0 0.75rem; font-family: var(--font-body); }
+.admin__summaries ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.35rem; font-size: 0.9rem; }
+.admin__summaries li { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.3rem; border-block-end: var(--hairline) solid var(--line); }
+.admin__summaries a { color: inherit; }
+
+.admin__tablewrap { overflow-x: auto; border: var(--hairline) solid var(--line); }
+.admin__table { inline-size: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.admin__table th, .admin__table td { text-align: start; padding: 0.75rem 1rem; border-block-end: var(--hairline) solid var(--line); vertical-align: top; }
+.admin__table th { background: var(--surface); font-weight: 500; white-space: nowrap; }
+.admin__date { display: block; white-space: nowrap; }
+.admin__sub { display: block; color: var(--text-muted); font-size: 0.78rem; }
+
+.admin__status { padding: 0.35rem 0.5rem; font: inherit; font-size: 0.85rem; border: var(--hairline) solid var(--line); background: var(--bg); color: var(--text); }
+
+.admin__northstar { display: flex; flex-wrap: wrap; gap: clamp(1.5rem, 5vw, 4rem); margin-block-end: 2.5rem; }
+.admin__figure { display: grid; gap: 0.25rem; }
+.admin__figurenum { font-family: var(--font-display-latin); font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1; color: var(--primary); font-variant-numeric: lining-nums; }
+.admin__figurelabel { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; }
+
+.admin__form { margin-block-end: 2.5rem; padding: 1.5rem; border: var(--hairline) solid var(--line); background: var(--surface); }
+.admin__form h2 { font-size: 1rem; margin: 0 0 1rem; }
+.admin__formrow { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-block-end: 1rem; }
+.admin__formrow label { display: grid; gap: 0.35rem; }
+.admin__formnote { grid-column: 1 / -1; }
+
+.admin__login { max-inline-size: 22rem; margin: clamp(3rem, 12vh, 6rem) auto; }
+.admin__login h1 { font-size: 1.75rem; margin: 0 0 1.5rem; }
+.admin__login form { display: grid; gap: 0.75rem; }
