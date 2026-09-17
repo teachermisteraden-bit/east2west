@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
 
-const STUB = `http://localhost:${process.env.STUB_PORT ?? 4999}`;
 const PASSWORD = "e2e-admin-password";
 
 /**

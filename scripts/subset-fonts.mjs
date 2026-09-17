@@ -23,7 +23,7 @@
  *   node scripts/subset-fonts.mjs
  */
 import { execFileSync } from "node:child_process";
-import { statSync, copyFileSync, renameSync } from "node:fs";
+import { statSync, renameSync } from "node:fs";
 
 const UNICODES = [
   "U+0600-06FF",

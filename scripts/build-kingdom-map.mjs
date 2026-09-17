@@ -32,7 +32,6 @@ const rings = saudi.geometry.type === "Polygon" ? saudi.geometry.coordinates : s
 // An equirectangular projection, corrected for latitude so the country is not
 // stretched sideways. At ~24°N that matters: cos(24°) is about 0.91.
 const all = rings.flat();
-const lons = all.map((c) => c[0]);
 const lats = all.map((c) => c[1]);
 const midLat = (Math.min(...lats) + Math.max(...lats)) / 2;
 const k = Math.cos((midLat * Math.PI) / 180);
