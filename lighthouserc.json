@@ -20,7 +20,7 @@
           "deviceScaleFactor": 2,
           "disabled": false
         },
-        "throttlingMethod": "simulate"
+        "throttlingMethod": "devtools"
       }
     },
     "assert": {

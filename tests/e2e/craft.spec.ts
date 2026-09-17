@@ -19,8 +19,12 @@ test.describe("the gold ring", () => {
     );
     test.skip(!applies, "the ring is for fine pointers with motion allowed");
 
-    await page.mouse.move(700, 400);
+    // Order matters. The ring is created in an effect, and it takes its position
+    // from a pointer event -- so a move dispatched before hydration lands on
+    // nothing, and the ring correctly stays hidden until the visitor moves
+    // again. Wait for the ring to exist, and only then move.
     await expect.poll(() => page.locator(".cursorring").count()).toBe(1);
+    await page.mouse.move(700, 400);
 
     const ring = page.locator(".cursorring");
     await expect(ring).toHaveAttribute("data-on", "true");
