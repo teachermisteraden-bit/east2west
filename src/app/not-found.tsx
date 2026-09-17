@@ -1,5 +1,4 @@
 import { defaultLocale, getLocale } from "@/i18n/locales";
-import { fontVariables } from "@/styles/fonts";
 import "@/styles/globals.css";
 
 /**
@@ -13,7 +12,7 @@ export default function RootNotFound() {
   const def = getLocale(defaultLocale);
 
   return (
-    <html lang={defaultLocale} dir={def.dir} data-script={def.script} className={fontVariables}>
+    <html lang={defaultLocale} dir={def.dir} data-script={def.script}>
       <body>
         <main id="main">
           <section className="notfound">

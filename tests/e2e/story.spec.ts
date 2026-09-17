@@ -155,11 +155,14 @@ test("the flywheel's active node follows scroll while the scene is pinned", asyn
   await requiresStickyScenes(page);
   await disableSmoothScroll(page);
 
+  // --active is the scene's own signal for "this node is the one in play".
+  // It is read directly rather than inferred from opacity, because dimming by
+  // opacity would push the text below the contrast floor (see a11y.spec.ts).
   const readBrightest = () =>
     page.evaluate(() => {
       const items = [...document.querySelectorAll(".flywheel__listitem")];
-      const opacities = items.map((el) => Number(getComputedStyle(el).opacity));
-      return opacities.indexOf(Math.max(...opacities));
+      const active = items.map((el) => Number(getComputedStyle(el).getPropertyValue("--active") || 0));
+      return active.indexOf(Math.max(...active));
     });
 
   const brightestAt = async (fraction: number) => {
@@ -200,7 +203,7 @@ test("the six-week challenge accumulates rather than resetting", async ({ page }
         page.evaluate(() =>
           Math.min(
             ...[...document.querySelectorAll(".stations__item")].map((el) =>
-              Number(getComputedStyle(el).opacity),
+              Number(getComputedStyle(el).getPropertyValue("--active") || 0),
             ),
           ),
         ),
@@ -228,6 +231,14 @@ test.describe("reduced motion", () => {
       [".flywheel__sticky", ".challenge__sticky"].map((s) => getComputedStyle(document.querySelector(s)!).position),
     );
     expect(stickies).toEqual(["static", "static"]);
+
+    // Dimming is by colour, never opacity, so no scene text is faded out.
+    const faded = await page.evaluate(() =>
+      [...document.querySelectorAll(".flywheel__listitem, .stations__item")]
+        .filter((el) => Number(getComputedStyle(el).opacity) < 1)
+        .map((el) => el.className),
+    );
+    expect(faded, "scene text must never be dimmed with opacity").toEqual([]);
 
     // The journey thread and the ring sweep are complete, not part-drawn.
     const fill = await page.locator(".journeyline__fill").evaluate((el) => getComputedStyle(el).transform);

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./fonts.css";
 @import "./tokens.css";
 
 /* Component styles. Kept beside their components; collected here so the layout

@@ -8,6 +8,7 @@ import { Section } from "@/components/ui/Section";
 import { Frame } from "@/components/ui/Frame";
 import { Invitation } from "@/components/ui/Invitation";
 import { events } from "@/content/events";
+import { EventData } from "@/components/ui/StructuredData";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -45,6 +46,7 @@ export default async function EventsPage({ params }: Props) {
   return (
     <>
       <PageIntro title={t("title")} subtitle={t("intro")} />
+      <EventData locale={locale} />
 
       {upcoming.length > 0 ? (
         <Section title={t("upcoming")}>

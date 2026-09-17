@@ -41,10 +41,10 @@
   --btn-edge: transparent;
 
   /* type */
-  --font-display-latin: var(--font-bodoni), "Times New Roman", serif;
-  --font-display-arabic: var(--font-amiri), "Traditional Arabic", serif;
-  --font-body-latin: var(--font-plex), system-ui, sans-serif;
-  --font-body-arabic: var(--font-plex-arabic), system-ui, sans-serif;
+  --font-display-latin: "Bodoni Moda", "Times New Roman", serif;
+  --font-display-arabic: "Amiri", "Traditional Arabic", serif;
+  --font-body-latin: "IBM Plex Sans", system-ui, sans-serif;
+  --font-body-arabic: "IBM Plex Sans Arabic", system-ui, sans-serif;
   --text-hero: clamp(48px, 8vw, 128px);
   --text-h1: clamp(40px, 5.5vw, 84px);
   --text-h2: clamp(32px, 4vw, 56px);

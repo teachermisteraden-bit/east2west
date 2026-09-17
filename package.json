@@ -16,6 +16,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
     "@supabase/supabase-js": "^2.116.0",
+    "bidi-js": "^1.1.0",
     "next": "^16.3.5",
     "next-intl": "^4.14.5",
     "react": "^19.3.0",
@@ -25,6 +26,12 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@fontsource/amiri": "^5.3.0",
+    "@fontsource/bodoni-moda": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^22.20.3",

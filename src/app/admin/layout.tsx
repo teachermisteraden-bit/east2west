@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { fontVariables } from "@/styles/fonts";
 import "@/styles/globals.css";
 import "./admin.css";
 
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" dir="ltr" data-script="latin" className={fontVariables}>
+    <html lang="en" dir="ltr" data-script="latin">
       <body>
         <div className="admin">
           <header className="admin__bar">

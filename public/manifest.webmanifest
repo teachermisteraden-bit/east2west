@@ -1,0 +1,13 @@
+{
+  "name": "East to West Development Society",
+  "short_name": "East to West",
+  "description": "A professional community founded in Madinah, connecting graduates and businesses across Saudi Arabia.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#101315",
+  "theme_color": "#101315",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

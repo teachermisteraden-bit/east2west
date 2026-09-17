@@ -60,16 +60,15 @@ export default async function SponsorsPage({ params }: Props) {
         </div>
         <Frame className="report">
           <p className="report__label eyebrow">{t("illustrative")}</p>
-          <dl className="report__grid">
-            {lines(t, "receive").map((row, i) => (
-              <div className="report__row" key={i}>
-                <dt>{row}</dt>
-                <dd aria-label={t("illustrative")}>
-                  <span className="report__rule" aria-hidden="true" />
-                </dd>
-              </div>
+          <ul className="report__grid">
+            {reportRows.map((row, i) => (
+              <li className="report__row" key={i}>
+                <span>{row}</span>
+                {/* A rule where a figure will go. Deliberately not a number. */}
+                <span className="report__rule" aria-hidden="true" />
+              </li>
             ))}
-          </dl>
+          </ul>
         </Frame>
       </Section>
 

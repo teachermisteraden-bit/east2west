@@ -7,9 +7,15 @@
   color: #ECE7DC;
   min-block-size: min(88svh, 820px);
   display: grid;
-  align-content: center;
+  /* Anchored to the top rather than centred.
+     Centring meant any reflow moved the whole block: when the body font swapped
+     in, the eyebrow and standfirst re-wrapped, the content box shrank by 70px,
+     and everything jumped — a measured 0.154 CLS against a 0.05 budget. With the
+     content anchored, a late font can only nudge what sits below the line that
+     changed, which is a fraction of the movement. */
+  align-content: start;
   overflow: hidden;
-  padding-block: clamp(2.5rem, 7vh, 5rem) clamp(4.5rem, 10vh, 7rem);
+  padding-block: clamp(4.5rem, 14vh, 8rem) clamp(4.5rem, 10vh, 7rem);
 }
 
 /* The compass layer: geography, so it never mirrors with the text. */
@@ -67,7 +73,10 @@
   margin-block: clamp(1.25rem, 2.4vh, 1.85rem) 0;
   color: #C9CCC6;
   font-size: clamp(1rem, 1.3vw, 1.2rem);
+  /* Three lines on a phone: the standfirst's own re-wrap then costs nothing. */
+  min-block-size: 3lh;
 }
+@media (min-width: 900px) { .hero__subtitle { min-block-size: 2lh; } }
 
 .hero__actions {
   display: flex;
@@ -75,7 +84,12 @@
   align-items: center;
   gap: 1.25rem 2rem;
   margin-block-start: clamp(1.75rem, 3.6vh, 2.5rem);
+  /* The action row wraps to two lines in the fallback and one in IBM Plex, which
+     moved everything below it when the font arrived. Reserving the taller of the
+     two costs nothing visually and removes the last of the hero's shift. */
+  min-block-size: 6.5rem;
 }
+@media (min-width: 560px) { .hero__actions { min-block-size: 3.5rem; } }
 .hero__secondary { color: #C9CCC6; font-size: 0.95rem; }
 
 .hero__cue {

@@ -28,7 +28,10 @@
 }
 
 .wordmark__arabic {
-  font-family: var(--font-display-arabic);
+  /* The body Arabic face, not the display one: at 15px a naskh display face is
+     less legible, and Amiri would cost every English page a 106 KB download for
+     four words. */
+  font-family: var(--font-body-arabic);
   font-size: calc(15px * var(--wm-scale, 1));
   font-weight: 400;
   color: var(--text-muted);

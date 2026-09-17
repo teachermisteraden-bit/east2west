@@ -278,9 +278,9 @@
     gap: 0.5rem;
     text-align: center;
     font-size: 0.85rem;
+    /* Never dimmed below AA: the un-lit state is --text-muted at full opacity. */
     color: var(--text-muted);
-    opacity: 0.45;
-    transition: opacity var(--dur-reveal) var(--ease-noble), color var(--dur-reveal) var(--ease-noble);
+    transition: color var(--dur-reveal) var(--ease-noble);
   }
   .flywheel__node:nth-child(3) { inset: -2.75rem auto auto 50%; transform: translateX(-50%); }
   .flywheel__node:nth-child(4) { inset: 50% -4.5rem auto auto; transform: translateY(-50%); }
@@ -295,7 +295,7 @@
     transition: background-color var(--dur-reveal) var(--ease-noble), box-shadow var(--dur-reveal) var(--ease-noble);
   }
 
-  .flywheel__listitem { opacity: 0.45; transition: opacity var(--dur-reveal) var(--ease-noble); }
+  .flywheel__listitem { color: var(--text-muted); transition: color var(--dur-reveal) var(--ease-noble); }
 
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
@@ -322,9 +322,12 @@
         --active: calc(
           clamp(0, calc(var(--local) * 6), 1) * clamp(0, calc((1 - var(--local)) * 6), 1)
         );
-        opacity: calc(0.45 + 0.55 * var(--active));
+        /* Both endpoints clear 4.5:1, so the node is legible throughout. */
+        color: color-mix(in oklab, var(--text) calc(var(--active) * 100%), var(--text-muted));
       }
-      .flywheel__node { color: color-mix(in oklab, var(--text) calc(var(--active) * 100%), var(--text-muted)); }
+      .flywheel__node .flywheel__dot {
+        background: color-mix(in oklab, var(--accent-strong) calc(var(--active) * 100%), var(--line));
+      }
     }
   }
 }
@@ -338,7 +341,7 @@
   .flywheel { block-size: auto !important; }
   .flywheel__sticky { position: static !important; block-size: auto !important; }
   .flywheel__node,
-  .flywheel__listitem { opacity: 1 !important; animation: none !important; color: var(--text) !important; }
+  .flywheel__listitem { color: var(--text) !important; }
   .flywheel__sweep { stroke-dashoffset: 0 !important; animation: none !important; }
 }
 
@@ -422,7 +425,7 @@
   }
 
   .stations { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 2rem); }
-  .stations__item { grid-template-columns: 1fr; gap: 1rem; padding-block: 0; opacity: 0.4; transition: opacity var(--dur-reveal) var(--ease-noble); }
+  .stations__item { grid-template-columns: 1fr; gap: 1rem; padding-block: 0; color: var(--text-muted); transition: color var(--dur-reveal) var(--ease-noble); }
   .stations__rail {
     inset-block-start: 0.7rem;
     inset-block-end: auto;
@@ -445,7 +448,9 @@
          cycle builds rather than passing through. */
       .stations__item {
         --local: calc(var(--scene-progress) * 4.6 - var(--i));
-        opacity: calc(0.4 + 0.6 * clamp(0, calc(var(--local) * 4), 1));
+        --active: clamp(0, calc(var(--local) * 4), 1);
+        /* Colour, not opacity: a station not yet reached is still readable. */
+        color: color-mix(in oklab, var(--text) calc(var(--active) * 100%), var(--text-muted));
       }
     }
   }
@@ -454,7 +459,7 @@
 @media (prefers-reduced-motion: reduce) {
   .challenge { block-size: auto !important; }
   .challenge__sticky { position: static !important; block-size: auto !important; }
-  .stations__item { opacity: 1 !important; animation: none !important; }
+  .stations__item { color: var(--text) !important; }
 }
 
 /* --------------------------------------------- VI — the member journey -- */

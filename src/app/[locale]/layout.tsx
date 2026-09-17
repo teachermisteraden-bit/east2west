@@ -6,13 +6,15 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 
 import { routing } from "@/i18n/routing";
 import { getLocale, activeLocales } from "@/i18n/locales";
-import { fontVariables } from "@/styles/fonts";
+import { preload } from "react-dom";
+import { displayFontFor, bodyFontFor } from "@/styles/fonts";
 import { site } from "@/config/site";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { SiteFooter } from "@/components/ui/SiteFooter";
 import { ThemeScript } from "@/components/ui/ThemeScript";
 import { RevealScript } from "@/components/scenes/RevealScript";
 import { Analytics } from "@/components/ui/Analytics";
+import { OrganizationData } from "@/components/ui/StructuredData";
 
 import "@/styles/globals.css";
 
@@ -58,6 +60,7 @@ export async function generateMetadata({
       locale,
     },
     robots: { index: true, follow: true },
+    manifest: "/manifest.webmanifest",
   };
 }
 
@@ -77,6 +80,13 @@ export default async function LocaleLayout({
   const def = getLocale(locale);
   const t = await getTranslations({ locale, namespace: "common" });
 
+  // Preload only this locale's faces. The others are never fetched at all,
+  // because their @font-face rules carry a unicode-range this page does not use.
+  // react-dom's preload emits exactly one tag; a <link> in JSX gets hoisted AND
+  // rendered, which produced two.
+  preload(displayFontFor(def.script), { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
+  preload(bodyFontFor(def.script), { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
+
   const all = await getMessages();
   const clientMessages = Object.fromEntries(
     CLIENT_NAMESPACES.filter((ns) => ns in all).map((ns) => [ns, all[ns]]),
@@ -87,9 +97,6 @@ export default async function LocaleLayout({
       lang={locale}
       dir={def.dir}
       data-script={def.script}
-      // The font variables must sit on <html>: tokens.css composes the display and
-      // body stacks at :root, so they have to resolve there.
-      className={fontVariables}
       suppressHydrationWarning
     >
       <head>
@@ -104,6 +111,7 @@ export default async function LocaleLayout({
           <SiteHeader locale={locale} />
           <main id="main">{children}</main>
           <SiteFooter locale={locale} />
+          <OrganizationData locale={locale} />
           <Analytics />
         </NextIntlClientProvider>
       </body>
