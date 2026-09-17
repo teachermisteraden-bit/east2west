@@ -35,25 +35,25 @@ test("a trailing slash never doubles up in a built URL", () => {
 
 test("a Vercel deploy with no SITE_URL uses the production domain, not localhost", () => {
   assert.equal(
-    resolve({ VERCEL_PROJECT_PRODUCTION_URL: "east2west26.vercel.app" }),
-    "https://east2west26.vercel.app",
+    resolve({ VERCEL_PROJECT_PRODUCTION_URL: "east2westds.vercel.app" }),
+    "https://east2westds.vercel.app",
   );
 });
 
 test("a preview points its canonical at production rather than competing with it", () => {
   assert.equal(
     resolve({
-      VERCEL_PROJECT_PRODUCTION_URL: "east2west26.vercel.app",
-      VERCEL_URL: "east2west26-git-branch.vercel.app",
+      VERCEL_PROJECT_PRODUCTION_URL: "east2westds.vercel.app",
+      VERCEL_URL: "east2westds-git-branch.vercel.app",
     }),
-    "https://east2west26.vercel.app",
+    "https://east2westds.vercel.app",
   );
 });
 
 test("a deployment URL still beats publishing localhost", () => {
   assert.equal(
-    resolve({ VERCEL_URL: "east2west26-abc123.vercel.app" }),
-    "https://east2west26-abc123.vercel.app",
+    resolve({ VERCEL_URL: "east2westds-abc123.vercel.app" }),
+    "https://east2westds-abc123.vercel.app",
   );
 });
 
@@ -63,7 +63,7 @@ test("localhost is only reachable when nothing else is set", () => {
 
 test("a host that already carries a scheme is not double-prefixed", () => {
   assert.equal(
-    resolve({ VERCEL_URL: "https://east2west26.vercel.app" }),
-    "https://east2west26.vercel.app",
+    resolve({ VERCEL_URL: "https://east2westds.vercel.app" }),
+    "https://east2westds.vercel.app",
   );
 });
