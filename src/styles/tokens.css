@@ -62,6 +62,8 @@
   --measure: 66ch;
   --section-y: clamp(72px, 14vh, 200px);
   --gutter: clamp(20px, 5vw, 64px);
+  /* Height of the sticky header. Sticky scenes reserve it; anchors clear it. */
+  --header-band: clamp(4.5rem, 9vh, 6rem);
   --radius: 2px;
   --hairline: 1px;
 

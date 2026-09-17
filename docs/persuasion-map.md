@@ -63,7 +63,26 @@ invitation.
 | Double opt-in | Newsletter subscribing records intent only; nothing is sent until the emailed link is clicked | `src/app/actions/newsletter.ts` | Separate lists per language, so Arabic subscribers are not sent English |
 | Truthful attribution | Poster QR visits are remembered in a first-party cookie and stored with the submission | `src/lib/tracking.ts`, `src/app/go/[campaign]/route.ts` | No third-party tracker, no cross-site identifier, nothing personal |
 
+## Phase 4 — Immersion
+
+The whole story is server-rendered HTML with CSS-driven motion, so it reads
+without JavaScript and adds nothing to the bundle.
+
+| Principle | Where it lives | File | Limit held |
+|---|---|---|---|
+| First impression (50ms) | The hero is complete on first paint: inline SVG lattice, CSS dawn, no image, no loader | `scenes/Hero.tsx` | Nothing shown before it is true |
+| Self-reference | Scene I puts graduates and businesses side by side, each seeing itself and why the other needs it | `scenes/TwoShores.tsx` | Neither side is flattered at the other's expense |
+| Coherent world (Messenger, 03) | One journey from the eastern dawn to the western dusk, rather than a stack of sections | `app/[locale]/page.tsx` | — |
+| Serial position | The story opens on the offer and closes on the promise and a single action | `Hero.tsx`, `Closing.tsx` | — |
+| Goal-gradient | The journey thread fills as you read and the final node, Lead, glows | `scenes/Journey.tsx` | The six steps are the real ones |
+| Peak-end rule | Scene IX is the deliberate end moment: dusk, the promise, one CTA | `scenes/Closing.tsx` | — |
+| Hick's law and autonomy | Four doors, each one outcome and one action | `scenes/FourDoors.tsx` | Four choices, not fourteen |
+| Aesthetic-usability | Slow, weighted motion; nothing bounces, spins or shakes | `scenes/scenes.css` | Motion never delays reading: reduced motion shows every scene finished |
+| Respect for attention | Two sticky scenes only, desktop-only, 190vh each, and the page always moves with the wheel | `.flywheel`, `.challenge` | Tested: `story.spec.ts` asserts the count, the height, and that nothing traps the page |
+| Text equivalents | The flywheel's meaning is an ordered list; the map has a legend and an `aria-label` | `scenes/Flywheel.tsx`, `scenes/KingdomMap.tsx` | The story never depends on seeing the diagram |
+| Cultural care | The lattice is a pattern, not a building; the map draws no neighbours and asserts no disputed border; the outline is credited | `scenes/Lattice.tsx`, `KingdomMap.tsx` | No mosque imagery, no emblem, no flag |
+| Truthful geography | Dawn rises east and dusk sets west in both languages, via the compass layer | `.compass-fixed` | Tested in both locales |
+
 ## Still to come
 
-- Phase 4: the scroll story — self-reference (two shores), serial position, the flywheel, the journey thread.
 - Phase 5: measurement, with no dark patterns in what is measured.

@@ -11,6 +11,7 @@ import { site } from "@/config/site";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { SiteFooter } from "@/components/ui/SiteFooter";
 import { ThemeScript } from "@/components/ui/ThemeScript";
+import { RevealScript } from "@/components/scenes/RevealScript";
 
 import "@/styles/globals.css";
 
@@ -92,6 +93,7 @@ export default async function LocaleLayout({
     >
       <head>
         <ThemeScript />
+        <RevealScript />
       </head>
       <body>
         <NextIntlClientProvider messages={clientMessages}>

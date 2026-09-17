@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/metadata";
+
 import { Hero } from "@/components/scenes/Hero";
+import { TwoShores } from "@/components/scenes/TwoShores";
+import { Pillars } from "@/components/scenes/Pillars";
+import { Flywheel } from "@/components/scenes/Flywheel";
+import { Programmes } from "@/components/scenes/Programmes";
+import { Challenge } from "@/components/scenes/Challenge";
+import { Journey } from "@/components/scenes/Journey";
+import { KingdomMap } from "@/components/scenes/KingdomMap";
+import { FourDoors } from "@/components/scenes/FourDoors";
+import { Closing } from "@/components/scenes/Closing";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -16,19 +26,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
+/**
+ * The Crossing at First Light.
+ *
+ * One journey that follows the sun from the eastern dawn of the hero to the
+ * western dusk of the close. Every scene is a server component: the whole story
+ * is HTML and CSS, with no JavaScript needed to read it.
+ */
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("home");
 
   return (
     <>
       <Hero />
-      <div className="shell stub">
-        <p className="stub__badge">
-          Phase 1 — scenes I to VIII ({t("shores.eyebrow")} … {t("doors.eyebrow")}) are built in Phase 4.
-        </p>
-      </div>
+      <TwoShores />
+      <Pillars />
+      <Flywheel />
+      <Programmes />
+      <Challenge />
+      <Journey />
+      <KingdomMap />
+      <FourDoors />
+      <Closing />
     </>
   );
 }

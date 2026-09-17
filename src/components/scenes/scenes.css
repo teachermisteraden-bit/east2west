@@ -1,0 +1,690 @@
+/*
+ * The Crossing at First Light.
+ *
+ * Motion is CSS-driven throughout: scroll-linked animations where the browser
+ * supports them, an IntersectionObserver class swap where it does not, and the
+ * finished state everywhere under reduced motion.
+ */
+
+/* Registered so it can be animated and read by descendants. Unregistered custom
+   properties are tokens, not numbers, and cannot be interpolated. */
+@property --scene-progress {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+/* Per-item activation, derived from --scene-progress in calc().
+   One animation drives the scene; every node computes its own state from it.
+   That is far easier to reason about than a separate animation-range per node,
+   and it keeps the ring, the nodes and the list in step by construction. */
+@property --local {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --active {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+/* ------------------------------------------------------------ reveal ----- */
+
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* Only hide content when we are certain we can bring it back. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(var(--rise));
+      animation: reveal-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 26%;
+    }
+  }
+}
+
+/* IntersectionObserver path: the script sets the attribute on <html> before it
+   observes anything, so content is never left hidden if the script fails. */
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-reveal-fallback] .reveal {
+    opacity: 0;
+    transform: translateY(var(--rise));
+    transition:
+      opacity var(--dur-reveal) var(--ease-noble),
+      transform var(--dur-reveal) var(--ease-noble);
+    transition-delay: calc(var(--reveal-index, 0) * var(--stagger));
+  }
+  :root[data-reveal-fallback] .reveal[data-revealed] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-rise {
+  from { opacity: 0; transform: translateY(var(--rise)); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Stagger within a group, capped so a nine-card grid never feels slow. */
+.reveal { animation-delay: calc(min(var(--reveal-index, 0), 5) * var(--stagger)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
+}
+
+/* --------------------------------------------------------- scene shell -- */
+
+.scene { padding-block: var(--section-y); position: relative; }
+.scene--dark { background: var(--obsidian); color: #ECE7DC; }
+.scene__head { margin-block-end: clamp(2.5rem, 6vh, 4.5rem); }
+.flywheel__sticky .scene__head,
+.challenge__sticky .scene__head { margin-block-end: clamp(1.5rem, 3.5vh, 2.5rem); }
+.scene__head .eyebrow { margin: 0 0 1.25rem; color: var(--accent-strong); }
+.scene__title { font-size: var(--text-h2); max-inline-size: 20ch; margin: 0; }
+:root[data-script="arabic"] .scene__title { max-inline-size: 24ch; }
+.scene__lead { margin-block: 1.5rem 0; color: var(--text-muted); max-inline-size: var(--measure); }
+
+/* ------------------------------------------------ I — the two shores ----- */
+
+.shores__grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3rem);
+  align-items: start;
+}
+
+.shores__side { position: relative; }
+.shores__name {
+  font-size: var(--text-h3);
+  margin: 0 0 1.5rem;
+  padding-block-end: 1rem;
+  border-block-end: var(--hairline) solid var(--line);
+}
+.shores__lines { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.85rem; color: var(--text-muted); }
+
+/* The thread that joins them. Horizontal on wide screens, vertical when the
+   shores stack, and it draws as the scene comes into view. */
+.shores__thread {
+  display: grid;
+  place-items: center;
+  min-block-size: 2rem;
+}
+.shores__threadline {
+  display: block;
+  background: var(--accent);
+  inline-size: 100%;
+  block-size: var(--hairline);
+  transform-origin: left center;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .shores__threadline {
+      transform: scaleX(0);
+      animation: thread-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 45%;
+    }
+  }
+}
+:root[data-reveal-fallback] .shores__threadline { transform: scaleX(0); transition: transform var(--dur-reveal) var(--ease-noble); }
+:root[data-reveal-fallback] .shores__grid [data-revealed] ~ .shores__thread .shores__threadline { transform: scaleX(1); }
+
+@keyframes thread-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shores__threadline { transform: none !important; animation: none !important; }
+}
+
+@media (min-width: 900px) {
+  .shores__grid { grid-template-columns: 1fr auto 1fr; gap: clamp(2rem, 4vw, 4rem); }
+  .shores__thread { min-inline-size: clamp(3rem, 8vw, 8rem); }
+}
+
+/* --------------------------------------------- II — the three pillars --- */
+
+.pillars__grid {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pillars__item {
+  position: relative;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border: var(--hairline) solid var(--line);
+  background: var(--surface);
+  min-block-size: clamp(14rem, 26vh, 20rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.pillars__numeral {
+  font-family: var(--font-display-latin);
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--accent-strong);
+  margin-block-end: auto;
+}
+.pillars__name { font-size: var(--text-h3); margin: 1.5rem 0 0.75rem; }
+.pillars__body { margin: 0; color: var(--text-muted); }
+
+@media (min-width: 860px) {
+  .pillars__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ------------------------------------------------- III — the flywheel --- */
+
+.flywheel { padding-block: var(--section-y); }
+.flywheel__sticky { }
+
+.flywheel__stage { display: grid; gap: clamp(2rem, 5vh, 3rem); }
+
+/* The ring is desktop-only decoration; the list is the real content. */
+.flywheel__ring { display: none; }
+
+.flywheel__list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: node;
+}
+.flywheel__listitem {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 1rem;
+  border-block-start: var(--hairline) solid var(--line);
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  font-family: var(--font-display);
+}
+.flywheel__listitem:last-child { border-block-end: var(--hairline) solid var(--line); }
+.flywheel__listnum {
+  font-family: var(--font-display-latin);
+  color: var(--accent-strong);
+  font-variant-numeric: lining-nums;
+}
+
+@media (min-width: 1024px) {
+  /* Sticky scene 1 of 2. 200vh is the ceiling set by 01 §3. */
+  .flywheel { block-size: 190vh; padding-block: 0; }
+  .flywheel__sticky {
+    position: sticky;
+    inset-block-start: 0;
+    /* svh, so a mobile browser's collapsing toolbar cannot clip the scene. */
+    block-size: 100svh;
+    display: grid;
+    align-content: safe center;
+    /* Clears the sticky header, which would otherwise cover the scene title. */
+    padding-block: var(--header-band) 2rem;
+    overflow: hidden;
+  }
+  .flywheel__stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(2rem, 5vw, 5rem); }
+
+  .flywheel__ring {
+    display: block;
+    position: relative;
+    /* Sized so the ring plus its outer labels clear one viewport. */
+    inline-size: min(100%, 18rem);
+    aspect-ratio: 1;
+    margin-inline: auto;
+    margin-block: 2.25rem;
+  }
+  .flywheel__svg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
+  .flywheel__track { fill: none; stroke: var(--line); stroke-width: 1; }
+  .flywheel__sweep {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    /* 2πr with r=150 */
+    stroke-dasharray: 942.5;
+    stroke-dashoffset: 942.5;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+
+  .flywheel__centre {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    gap: 0.35rem;
+    text-align: center;
+    inline-size: 10rem;
+  }
+  .flywheel__centrename { font-family: var(--font-display); font-size: 1.15rem; }
+  .flywheel__centresub { font-size: var(--text-label); color: var(--text-muted); }
+
+  /* Four nodes at the quarter points of the ring. */
+  .flywheel__node {
+    position: absolute;
+    inline-size: 9.5rem;
+    display: grid;
+    justify-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0.45;
+    transition: opacity var(--dur-reveal) var(--ease-noble), color var(--dur-reveal) var(--ease-noble);
+  }
+  .flywheel__node:nth-child(3) { inset: -2.75rem auto auto 50%; transform: translateX(-50%); }
+  .flywheel__node:nth-child(4) { inset: 50% -4.5rem auto auto; transform: translateY(-50%); }
+  .flywheel__node:nth-child(5) { inset: auto auto -2.75rem 50%; transform: translateX(-50%); }
+  .flywheel__node:nth-child(6) { inset: 50% auto auto -4.5rem; transform: translateY(-50%); }
+
+  .flywheel__dot {
+    inline-size: 9px;
+    block-size: 9px;
+    border-radius: 50%;
+    background: var(--line);
+    transition: background-color var(--dur-reveal) var(--ease-noble), box-shadow var(--dur-reveal) var(--ease-noble);
+  }
+
+  .flywheel__listitem { opacity: 0.45; transition: opacity var(--dur-reveal) var(--ease-noble); }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      /* One named timeline for the whole scene, driving one number. */
+      .flywheel {
+        view-timeline-name: --flywheel;
+        view-timeline-axis: block;
+        animation: scene-progress linear both;
+        animation-timeline: --flywheel;
+        animation-range: contain 0% contain 100%;
+      }
+
+      .flywheel__sweep {
+        /* The sweep traces the ring in step with the same number. */
+        stroke-dashoffset: calc(942.5 - 942.5 * var(--scene-progress));
+      }
+
+      /* Each node is lit while its quarter is in play, and dims either side.
+         --local runs 0..1 across the node's own quarter; --active is 1 in the
+         middle of that quarter and 0 outside it. */
+      .flywheel__node,
+      .flywheel__listitem {
+        --local: calc(var(--scene-progress) * 3.7 - var(--i));
+        --active: calc(
+          clamp(0, calc(var(--local) * 6), 1) * clamp(0, calc((1 - var(--local)) * 6), 1)
+        );
+        opacity: calc(0.45 + 0.55 * var(--active));
+      }
+      .flywheel__node { color: color-mix(in oklab, var(--text) calc(var(--active) * 100%), var(--text-muted)); }
+    }
+  }
+}
+
+@keyframes scene-progress {
+  from { --scene-progress: 0; }
+  to { --scene-progress: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flywheel { block-size: auto !important; }
+  .flywheel__sticky { position: static !important; block-size: auto !important; }
+  .flywheel__node,
+  .flywheel__listitem { opacity: 1 !important; animation: none !important; color: var(--text) !important; }
+  .flywheel__sweep { stroke-dashoffset: 0 !important; animation: none !important; }
+}
+
+/* -------------------------------------------- IV — the nine programmes -- */
+
+.progtiles {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.progtiles__item {
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  border: var(--hairline) solid var(--line);
+  background: var(--surface);
+  transition: transform var(--dur-hover) var(--ease-noble), border-color var(--dur-hover) var(--ease-standard);
+}
+.progtiles__stage { margin: 0 0 1rem; color: var(--accent-strong); }
+.progtiles__name { font-size: clamp(1.05rem, 1.5vw, 1.25rem); margin: 0; }
+.progtiles__body { margin: 0.75rem 0 0; color: var(--text-muted); font-size: 0.9rem; }
+
+@media (min-width: 700px) { .progtiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .progtiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Lift only where there is a real pointer to hover with. On touch the
+   description is already visible, so nothing is hidden behind an interaction. */
+@media (hover: hover) and (pointer: fine) {
+  .progtiles__item:hover,
+  .progtiles__item:focus-within {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .progtiles__item:hover, .progtiles__item:focus-within { transform: none; }
+}
+
+/* ------------------------------------------ V — the six-week challenge -- */
+
+.stations { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+
+.stations__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  align-items: start;
+  gap: 1.25rem;
+  padding-block: clamp(1.25rem, 3vh, 2rem);
+}
+
+.stations__week {
+  font-family: var(--font-display-latin);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--accent-strong);
+  font-variant-numeric: lining-nums;
+}
+.stations__rail {
+  position: absolute;
+  inset-inline-start: 1.45rem;
+  inset-block: 2.5rem -0.5rem;
+  inline-size: var(--hairline);
+  background: var(--line);
+}
+.stations__item:last-child .stations__rail { display: none; }
+.stations__text { margin: 0; font-family: var(--font-display); font-size: clamp(1.05rem, 1.7vw, 1.4rem); }
+
+@media (min-width: 1024px) {
+  /* Sticky scene 2 of 2. */
+  .challenge { block-size: 190vh; padding-block: 0; }
+  .challenge__sticky {
+    position: sticky;
+    inset-block-start: 0;
+    block-size: 100svh;
+    display: grid;
+    align-content: safe center;
+    padding-block: var(--header-band) 2rem;
+    overflow: hidden;
+  }
+
+  .stations { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 2rem); }
+  .stations__item { grid-template-columns: 1fr; gap: 1rem; padding-block: 0; opacity: 0.4; transition: opacity var(--dur-reveal) var(--ease-noble); }
+  .stations__rail {
+    inset-block-start: 0.7rem;
+    inset-block-end: auto;
+    inset-inline: 2.5rem -2rem;
+    block-size: var(--hairline);
+    inline-size: auto;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .challenge {
+        view-timeline-name: --challenge;
+        view-timeline-axis: block;
+        animation: scene-progress linear both;
+        animation-timeline: --challenge;
+        animation-range: contain 0% contain 100%;
+      }
+
+      /* Stations accumulate: a week already reached stays lit, because the
+         cycle builds rather than passing through. */
+      .stations__item {
+        --local: calc(var(--scene-progress) * 4.6 - var(--i));
+        opacity: calc(0.4 + 0.6 * clamp(0, calc(var(--local) * 4), 1));
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .challenge { block-size: auto !important; }
+  .challenge__sticky { position: static !important; block-size: auto !important; }
+  .stations__item { opacity: 1 !important; animation: none !important; }
+}
+
+/* --------------------------------------------- VI — the member journey -- */
+
+.journeyline {
+  position: relative;
+  display: grid;
+  gap: clamp(1.75rem, 4vh, 2.5rem);
+  margin: 0;
+  padding: 0 0 0 2.5rem;
+  list-style: none;
+}
+:root[dir="rtl"] .journeyline { padding: 0 2.5rem 0 0; }
+
+.journeyline__track {
+  position: absolute;
+  inset-inline-start: 0.45rem;
+  inset-block: 0.5rem;
+  inline-size: var(--hairline);
+  background: var(--line);
+}
+.journeyline__fill {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.journeyline__item { position: relative; }
+.journeyline__dot {
+  position: absolute;
+  inset-inline-start: -2.25rem;
+  inset-block-start: 0.55rem;
+  inline-size: 11px;
+  block-size: 11px;
+  border-radius: 50%;
+  border: var(--hairline) solid var(--accent);
+  background: var(--bg);
+}
+.journeyline__name { font-size: var(--text-h3); margin: 0 0 0.35rem; }
+.journeyline__body { margin: 0; color: var(--text-muted); }
+
+/* The destination glows. */
+.journeyline__item[data-last="true"] .journeyline__dot { background: var(--accent); box-shadow: 0 0 0 5px color-mix(in oklab, var(--accent) 20%, transparent); }
+.journeyline__item[data-last="true"] .journeyline__name { color: var(--primary); }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .journeyline__fill {
+      animation: journey-fill linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 70%;
+    }
+  }
+}
+@keyframes journey-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .journeyline__fill { transform: none !important; animation: none !important; }
+}
+:root[data-reveal-fallback] .journeyline__fill { transform: scaleY(1); }
+
+@media (min-width: 900px) {
+  .journeyline { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(1.5rem, 3vw, 3rem); }
+}
+
+/* ------------------------------------------- VII — across the Kingdom --- */
+
+.kingdom__stage { display: grid; gap: clamp(2rem, 5vh, 3rem); align-items: center; }
+
+.kingdom__figure { position: relative; }
+.kingdom__svg { inline-size: 100%; block-size: auto; overflow: visible; }
+
+.kingdom__outline path {
+  fill: color-mix(in oklab, var(--primary) 6%, transparent);
+  stroke: var(--primary);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.kingdom__arcs path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-dasharray: 3 7;
+  opacity: 0.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.kingdom__city circle { fill: var(--accent-strong); }
+.kingdom__city--next circle { fill: none; stroke: var(--accent-strong); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+
+/* Madinah acknowledges itself once, then rests. No looping pulse. */
+.kingdom__pulse { fill: var(--accent); opacity: 0; transform-origin: center; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .kingdom__pulse {
+      animation: madinah-glow linear both;
+      animation-timeline: view();
+      animation-range: entry 25% cover 55%;
+    }
+  }
+}
+@keyframes madinah-glow {
+  0% { opacity: 0; }
+  55% { opacity: 0.32; }
+  100% { opacity: 0.12; }
+}
+@media (prefers-reduced-motion: reduce) { .kingdom__pulse { opacity: 0.12 !important; animation: none !important; } }
+
+.kingdom__credit { margin: 1rem 0 0; font-size: 0.75rem; color: var(--text-muted); }
+.kingdom__credit a { color: inherit; }
+
+.kingdom__legend { display: grid; gap: 1rem; margin: 0; }
+.kingdom__row { display: grid; grid-template-columns: 1rem 1fr; align-items: center; gap: 0.85rem; }
+.kingdom__row dd { margin: 0; }
+.kingdom__dot { inline-size: 11px; block-size: 11px; border-radius: 50%; }
+.kingdom__dot--founding { background: var(--accent-strong); }
+.kingdom__dot--next { border: var(--hairline) solid var(--accent-strong); }
+.kingdom__dot--later { border: var(--hairline) dashed var(--accent-strong); opacity: 0.6; }
+
+@media (min-width: 900px) {
+  .kingdom__stage { grid-template-columns: 1.6fr 1fr; gap: clamp(2rem, 5vw, 4rem); }
+}
+
+/* ------------------------------------------------ VIII — the four doors -- */
+
+.doors__grid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* Equal heights: a card with a shorter line must not sit shorter than the
+     rest, or the row of invitations stops reading as a set. */
+  align-items: stretch;
+}
+.doors__item { display: grid; }
+
+.doors__card {
+  position: relative;
+  display: block;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border: var(--hairline) solid var(--line);
+  background: var(--surface);
+  text-decoration: none;
+  color: inherit;
+  min-block-size: clamp(12rem, 22vh, 16rem);
+  block-size: 100%;
+  overflow: hidden;
+}
+
+/* The inner frame, in two leaves that part like a door. */
+.doors__frame { position: absolute; inset: 6px; pointer-events: none; }
+.doors__leaf {
+  position: absolute;
+  inset-block: 0;
+  inline-size: 50%;
+  border: var(--hairline) solid var(--line-accent);
+  transition: transform var(--dur-hover) var(--ease-noble), border-color var(--dur-hover) var(--ease-standard);
+}
+.doors__leaf--start { inset-inline-start: 0; border-inline-end: 0; }
+.doors__leaf--end { inset-inline-end: 0; border-inline-start: 0; }
+
+@media (hover: hover) and (pointer: fine) {
+  .doors__card:hover .doors__leaf--start { transform: translateX(-6px); }
+  .doors__card:hover .doors__leaf--end { transform: translateX(6px); }
+}
+.doors__card:focus-visible .doors__leaf--start { transform: translateX(-6px); }
+.doors__card:focus-visible .doors__leaf--end { transform: translateX(6px); }
+.doors__card:hover .doors__leaf,
+.doors__card:focus-visible .doors__leaf { border-color: var(--accent); }
+
+.doors__body {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  block-size: 100%;
+  grid-template-rows: auto 1fr auto;
+}
+.doors__name { font-family: var(--font-display); font-size: var(--text-h3); }
+.doors__line { color: var(--text-muted); }
+.doors__cta { margin-block-start: auto; color: var(--accent-strong); font-size: 0.9rem; }
+.doors__card:hover .doors__cta { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (min-width: 700px) { .doors__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .doors__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .doors__leaf { transition: none; }
+  .doors__card:hover .doors__leaf, .doors__card:focus-visible .doors__leaf { transform: none; }
+}
+
+/* ------------------------------------------------- IX — the closing ----- */
+
+.closing {
+  position: relative;
+  isolation: isolate;
+  background: var(--obsidian);
+  color: #ECE7DC;
+  overflow: hidden;
+  padding-block: clamp(5rem, 16vh, 11rem);
+}
+
+.closing__sky { position: absolute; inset: 0; z-index: -1; }
+
+/* Dusk sets on the WESTERN edge — the left on a north-up map, in both
+   languages. The hero opened in the east; this closes the path. */
+.closing__dusk {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(110% 80% at 0% 85%, rgba(233, 201, 160, 0.3) 0%, rgba(176, 135, 63, 0.12) 34%, transparent 68%),
+    radial-gradient(70% 55% at 10% 96%, rgba(217, 184, 120, 0.22) 0%, transparent 60%);
+}
+.closing__horizon {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 16%;
+  block-size: var(--hairline);
+  background: linear-gradient(to right, rgba(217, 184, 120, 0.5), rgba(217, 184, 120, 0.15) 55%, transparent);
+}
+
+.closing__content { position: relative; }
+.closing__title { font-size: var(--text-h1); max-inline-size: 18ch; margin: 0; }
+:root[data-script="arabic"] .closing__title { max-inline-size: 22ch; }
+.closing__actions { margin-block-start: clamp(2rem, 5vh, 3rem); }
+.closing__founded { margin-block-start: clamp(2rem, 5vh, 3rem); color: var(--gold-light); font-size: 0.85rem; }
