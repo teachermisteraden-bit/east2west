@@ -1,13 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <!--
-    The eight-fold lattice motif the dawn light passes through — the site's own
-    geometry, rather than the retired arch. A pattern, never a building.
-    Replaced by the mark in brand/ when Claude Design delivers it.
+    The favicon is not the badge shrunk down. At 16px the laurel, the figures and
+    the standard all collapse into a single grey smudge, so this keeps only the
+    two marks that survive: the eight-point star of the standard, over the open
+    book. Same palette, same geometry, legible at a tab's worth of pixels.
   -->
-  <rect width="64" height="64" fill="#101315"/>
-  <g fill="none" stroke="#D9B878" stroke-width="2" stroke-linejoin="round">
-    <rect x="18" y="18" width="28" height="28"/>
-    <rect x="18" y="18" width="28" height="28" transform="rotate(45 32 32)"/>
+  <rect width="64" height="64" rx="14" fill="#1F5A45"/>
+  <g fill="#D9B878">
+    <rect x="25" y="13" width="14" height="14"/>
+    <rect x="25" y="13" width="14" height="14" transform="rotate(45 32 20)"/>
   </g>
-  <circle cx="32" cy="32" r="5" fill="#D9B878"/>
+  <g fill="#F5F1E8">
+    <path d="M32 40c-5-3.6-11.4-4.8-17.2-4.2-.5 0-.8.4-.8.9v10.6c0 .5.4.9.9.9 5.7-.6 12 .6 17.1 4.2z"/>
+    <path d="M32 40c5-3.6 11.4-4.8 17.2-4.2.5 0 .8.4.8.9v10.6c0 .5-.4.9-.9.9-5.7-.6-12 .6-17.1 4.2z"/>
+  </g>
+  <path d="M32 40v12.4" stroke="#1F5A45" stroke-width="2.2" stroke-linecap="round"/>
 </svg>

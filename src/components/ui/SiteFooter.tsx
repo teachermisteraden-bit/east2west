@@ -21,6 +21,7 @@ export async function SiteFooter({ locale }: { locale: string }) {
   const t = await getTranslations("nav");
   const tc = await getTranslations("common");
   const tf = await getTranslations("footer");
+  const tm = await getTranslations("meta");
   const tcontact = await getTranslations("contact");
   const socials = socialLinks();
 
@@ -28,7 +29,7 @@ export async function SiteFooter({ locale }: { locale: string }) {
     <footer className="sitefooter on-dark">
       <div className="shell sitefooter__inner">
         <div className="sitefooter__brand">
-          <Wordmark size="md" />
+          <Wordmark size="md" uid="footer" name={tm("siteName")} />
           {/* Required in the hero eyebrow and the footer (04). */}
           <p className="sitefooter__founded">{tc("founded")}</p>
           <p className="sitefooter__stage">{tc("foundingStage")}</p>

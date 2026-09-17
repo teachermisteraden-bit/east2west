@@ -1,39 +1,80 @@
-/* Styles for the temporary wordmark. Deleted with the component at the brand swap. */
+/* The E2W DS lockup. */
+
 .wordmark {
   display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: calc(4px * var(--wm-scale, 1));
+  align-items: center;
+  gap: calc(10px * var(--wm-scale));
   line-height: 1;
-  /* The lockup is a mark, not prose: it never mirrors. */
+  /* A mark, not prose: it reads the same on an Arabic page as on an English one. */
   direction: ltr;
   text-align: start;
+
+  /* Mapped onto the site's own palette rather than importing a second green,
+     so the badge sits inside the art direction instead of beside it. */
+  --mark-field-a: var(--palm);
+  --mark-field-b: #14705C;
+  --mark-gold: var(--gold-light);
+  --mark-ivory: var(--ivory);
+  --wm-scale: 1;
 }
 
-.wordmark__latin {
+.wordmark--sm { --wm-scale: 0.74; }
+.wordmark--lg { --wm-scale: 2.1; }
+
+.wordmark[data-stacked="true"] {
+  flex-direction: column;
+  align-items: center;
+  gap: calc(7px * var(--wm-scale));
+}
+
+.mark {
+  display: block;
+  width: calc(64px * var(--wm-scale));
+  height: auto;
+  flex: none;
+}
+
+/* The compact badge carries fewer marks, so it can run smaller without
+   turning to mud. */
+.mark--compact { width: calc(46px * var(--wm-scale)); }
+
+.wordmark__letters {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.wordmark[data-stacked="true"] .wordmark__letters { align-items: center; }
+
+.wordmark__primary {
   font-family: var(--font-display-latin);
-  font-size: calc(21px * var(--wm-scale, 1));
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-size: calc(26px * var(--wm-scale));
+  font-weight: 600;
+  /* Three wide letterforms; without this they read as three separate words. */
+  letter-spacing: 0.01em;
   color: var(--text);
   white-space: nowrap;
 }
 
-.wordmark__rule {
-  display: block;
-  width: 100%;
-  min-width: calc(80px * var(--wm-scale, 1));
-  height: var(--hairline);
-  background: var(--line-accent);
+.wordmark__secondary {
+  font-family: var(--font-body-latin);
+  font-size: calc(12.5px * var(--wm-scale));
+  font-weight: 500;
+  /* Tracking is what makes two letters read as a mark rather than a typo. */
+  letter-spacing: 0.34em;
+  /* The tracking adds a trailing gap that breaks optical centring under E2W. */
+  text-indent: 0.34em;
+  color: var(--gold-text);
+  white-space: nowrap;
 }
 
-.wordmark__arabic {
-  /* The body Arabic face, not the display one: at 15px a naskh display face is
-     less legible, and Amiri would cost every English page a 106 KB download for
-     four words. */
-  font-family: var(--font-body-arabic);
-  font-size: calc(15px * var(--wm-scale, 1));
-  font-weight: 400;
-  color: var(--text-muted);
-  white-space: nowrap;
+/* On the obsidian hero and in dark mode the gold text token is tuned for light
+   fields and goes muddy, so the lighter gold takes over. */
+.on-dark .wordmark__secondary,
+:root[data-theme="dark"] .wordmark__secondary {
+  color: var(--gold-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .wordmark__secondary { color: var(--gold-light); }
 }

@@ -37,16 +37,23 @@ export function Cursor() {
       ring.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
     };
 
-    const onMove = (event: PointerEvent) => {
+    // Position comes from any pointer event, not only pointermove. If the
+    // visitor's pointer is already resting over the page when this mounts, no
+    // pointermove will ever arrive until they happen to move -- and the ring
+    // would sit dead at -100,-100. pointerover fires when the element beneath a
+    // still pointer changes, which is exactly the hydration case, and it
+    // carries the current coordinates.
+    const track = (event: PointerEvent) => {
       x = event.clientX;
       y = event.clientY;
       if (!frame) frame = requestAnimationFrame(draw);
-      if (!ring.dataset.on) ring.dataset.on = "true";
+      if (ring.dataset.on !== "true") ring.dataset.on = "true";
     };
 
     // The ring opens over anything the visitor can act on.
     const INTERACTIVE = "a, button, summary, input, select, textarea, label, [role='button'], [tabindex]:not([tabindex='-1'])";
-    const onOver = (event: Event) => {
+    const onOver = (event: PointerEvent) => {
+      track(event);
       const target = event.target as Element | null;
       ring.dataset.open = target?.closest?.(INTERACTIVE) ? "true" : "";
     };
@@ -54,12 +61,12 @@ export function Cursor() {
       ring.dataset.on = "";
     };
 
-    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointermove", track, { passive: true });
     window.addEventListener("pointerover", onOver, { passive: true });
     document.addEventListener("pointerleave", onLeave);
 
     return () => {
-      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointermove", track);
       window.removeEventListener("pointerover", onOver);
       document.removeEventListener("pointerleave", onLeave);
       if (frame) cancelAnimationFrame(frame);

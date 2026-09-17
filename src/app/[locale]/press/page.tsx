@@ -27,7 +27,7 @@ export default async function PressPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("press");
-  const tc = await getTranslations("common");
+  const tm = await getTranslations("meta");
 
   return (
     <>
@@ -43,12 +43,7 @@ export default async function PressPage({ params }: Props) {
 
       <Section title={t("logos")}>
         <Frame className="press__logo">
-          <Wordmark size="lg" />
-          {/* Honest about what this is: the final logo has not been made yet, so
-              we do not offer a "logo kit" that would misrepresent the brand. */}
-          <p className="placeholder-note" style={{ marginBlockStart: "2rem" }}>
-            {tc("comingSoon")}
-          </p>
+          <Wordmark size="lg" uid="press" name={tm("siteName")} />
         </Frame>
       </Section>
 

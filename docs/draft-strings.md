@@ -42,3 +42,24 @@ Genuinely new, and flagged for review:
 The Arabic above was written, not machine-translated. It still needs a native
 speaker's review before launch — particularly `join.options.coDirectorNotYet`
 and the `typeNoun` phrases, which have to read naturally inside a sentence.
+
+## Launchpad Labs
+
+New programme, added after the approved copy was written, so both languages are
+drafts:
+
+| Key | English | Arabic |
+|---|---|---|
+| `programmes.items.launchpadLabs.name` | Launchpad Labs | مختبرات الإطلاق |
+| `programmes.items.launchpadLabs.body` | Members put the highest-value unsolved problems on the table, argue them out, and leave having started to build the ones that hold up. | يطرح الأعضاء أهم المشكلات التي لم تُحل بعد، ويناقشونها، ثم يخرجون وقد بدأوا العمل على ما يستحق البناء منها. |
+
+Two things to decide, both of which need the owner rather than a translator:
+
+- **The Arabic name.** `مختبرات الإطلاق` reads as "Launch Labs" and is clean
+  Arabic. The alternative is to keep *Launchpad Labs* in Latin script on the
+  Arabic page, the way many Saudi organisations keep a programme's brand name
+  untranslated. That is a branding decision, not a translation one.
+- **The English body** describes the format as we understand it — members bring
+  the highest-value unsolved problems, defend them, and start building the ones
+  that survive. It deliberately promises no cadence, no cohort size and no
+  outcomes, because none of those are decided yet. Tighten it once they are.

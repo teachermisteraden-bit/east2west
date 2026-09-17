@@ -1,0 +1,10 @@
+{
+  "en": {
+    "programmes.items.launchpadLabs.name": "Launchpad Labs",
+    "programmes.items.launchpadLabs.body": "Members put the highest-value unsolved problems on the table, argue them out, and leave having started to build the ones that hold up."
+  },
+  "ar": {
+    "programmes.items.launchpadLabs.name": "مختبرات الإطلاق",
+    "programmes.items.launchpadLabs.body": "يطرح الأعضاء أهم المشكلات التي لم تُحل بعد، ويناقشونها، ثم يخرجون وقد بدأوا العمل على ما يستحق البناء منها."
+  }
+}

@@ -250,6 +250,12 @@
         "name": "Hiring events",
         "body": "Employers meet and interview graduates on the spot.",
         "group": "earn"
+      },
+      "launchpadLabs": {
+        "name": "Launchpad Labs",
+        "name_draft": true,
+        "body": "Members put the highest-value unsolved problems on the table, argue them out, and leave having started to build the ones that hold up.",
+        "body_draft": true
       }
     }
   },

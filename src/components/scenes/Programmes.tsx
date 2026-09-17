@@ -3,10 +3,12 @@ import { Reveal } from "./Reveal";
 import { programmes } from "@/content/programmes";
 
 /**
- * Scene IV — The nine programmes.
+ * Scene IV — The programmes.
  *
- * A 3×3 grid grouped by the stage of the journey each one serves, so nine tiles
- * read as one path rather than a menu. Hover and focus lift a card; on touch
+ * A grid grouped by the stage of the journey each one serves, so the tiles read
+ * as one path rather than a menu. The count is whatever content/programmes.ts
+ * holds -- it was nine at launch and is ten with Launchpad Labs -- so the grid
+ * reflows rather than assuming a square. Hover and focus lift a card; on touch
  * every description is simply visible, because there is no hover to discover it
  * with (01 §4).
  */

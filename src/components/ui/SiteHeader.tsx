@@ -22,7 +22,7 @@ export async function SiteHeader({ locale }: { locale: string }) {
     <header className="siteheader">
       <div className="shell siteheader__inner">
         <Link href="/" className="siteheader__brand" aria-label={t("home")}>
-          <Wordmark size="sm" />
+          <Wordmark size="sm" uid="header" />
         </Link>
 
         <nav className="siteheader__nav" aria-label={t("menu")}>

@@ -7,6 +7,7 @@
 // defaults and would have leaked into the Arabic form. See docs/step-0-review.md B4.
 // tests/schemas.test.mjs asserts every issue message stays a known message key.
 import { z } from "zod";
+import { programmes } from "@/content/programmes";
 import { locales } from "@/i18n/locales";
 
 const phone = z
@@ -26,10 +27,18 @@ const tracking = z.object({
   website: z.string().max(0).optional(), // honeypot: must stay empty
 });
 
-export const programmeKeys = [
-  "businessEnglish", "workplaceArabic", "financialLiteracy", "careerReadiness",
-  "networking", "mentorship", "startupClinic", "talentDirectory", "hiringEvents",
-] as const;
+/**
+ * Derived from the programme list rather than restated here.
+ *
+ * These two were separate lists until Launchpad Labs was added to the content
+ * and not to this enum: the join form renders a checkbox per programme, so the
+ * tenth box appeared, the visitor could tick it, and the server then rejected
+ * the whole application -- a dead-end form, which the brief forbids outright.
+ * Deriving it means adding a programme cannot produce an option the server
+ * refuses. Cast for the same reason `locale` above is cast: z.enum wants a
+ * non-empty tuple, and a mapped array is not one.
+ */
+export const programmeKeys = programmes.map((p) => p.key) as [string, ...string[]];
 
 export const sponsorshipOptions = [
   "programme", "hiringEvent", "chapterPatron", "scholarship", "keynoteSeries", "summit",

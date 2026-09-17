@@ -20,6 +20,7 @@ import {
   businessSchema,
   chapterSchema,
 } from "../src/lib/schemas.ts";
+import { programmes } from "../src/content/programmes.ts";
 
 const en = JSON.parse(readFileSync(new URL("../messages/en.json", import.meta.url), "utf8"));
 const ar = JSON.parse(readFileSync(new URL("../messages/ar.json", import.meta.url), "utf8"));
@@ -109,22 +110,64 @@ test("the two keys Zod 4 silently drops are still keys", () => {
   assert.ok(messages.includes("consent"), `expected "consent", got ${JSON.stringify(messages)}`);
 });
 
+const validGraduate = () => ({
+  mode: "graduate",
+  fullName: "Aisha Rahman",
+  email: "aisha@example.com",
+  mobile: "+966512345678",
+  city: "Madinah",
+  nationality: "Saudi",
+  status: "graduate",
+  university: "Taibah University",
+  fieldOfStudy: "Computer Science",
+  graduationYear: "2025",
+  interests: ["mentorship", "careerReadiness"],
+  consent: true,
+  locale: "ar",
+});
+
 test("a complete, valid application passes", () => {
-  const result = graduateSchema.safeParse({
-    mode: "graduate",
-    fullName: "Aisha Rahman",
-    email: "aisha@example.com",
-    mobile: "+966512345678",
-    city: "Madinah",
-    nationality: "Saudi",
-    status: "graduate",
-    university: "Taibah University",
-    fieldOfStudy: "Computer Science",
-    graduationYear: "2025",
-    interests: ["mentorship", "careerReadiness"],
-    consent: true,
-    locale: "ar",
-  });
+  const result = graduateSchema.safeParse(validGraduate());
   assert.ok(result.success, JSON.stringify(result.error?.issues));
   assert.equal(result.data.graduationYear, 2025);
+});
+
+test("every programme the join form can offer is a value the server accepts", () => {
+  // The form renders one checkbox per entry in content/programmes.ts and the
+  // server validates against programmeKeys. When those were two hand-kept
+  // lists, adding Launchpad Labs to one and not the other produced a checkbox
+  // that failed the whole application on submit.
+  for (const programme of programmes) {
+    const result = graduateSchema.safeParse({
+      ...validGraduate(),
+      interests: [programme.key],
+    });
+    assert.equal(
+      result.success,
+      true,
+      `the form offers "${programme.key}" but the server rejects it: ` +
+        JSON.stringify(result.error?.issues ?? []),
+    );
+  }
+});
+
+test("every programme has copy in every locale", () => {
+  for (const [locale, messages] of [["en", en], ["ar", ar]]) {
+    for (const programme of programmes) {
+      const item = messages.programmes?.items?.[programme.key];
+      assert.ok(item?.name, `${locale}: programmes.items.${programme.key}.name is missing`);
+      assert.ok(item?.body, `${locale}: programmes.items.${programme.key}.body is missing`);
+    }
+  }
+});
+
+test("the form's interest options are the programme list itself", async () => {
+  // Three places once restated this list -- the content file, the Zod enum and
+  // the form's option table -- and adding a programme updated one of them.
+  const { fieldOptions } = await import("../src/lib/form-steps.ts");
+  assert.deepEqual(
+    [...fieldOptions.interests],
+    programmes.map((p) => p.key),
+    "the join form offers a different set of programmes than the site publishes",
+  );
 });

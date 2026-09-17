@@ -1,3 +1,5 @@
+import { programmes } from "@/content/programmes";
+
 /**
  * Which fields appear on which step, per mode.
  *
@@ -55,17 +57,11 @@ export const fieldOptions: Record<string, readonly string[]> = {
   options: ["programme", "hiringEvent", "chapterPatron", "scholarship", "keynoteSeries", "summit"],
   roles: ["rolesNetworking", "rolesKeynote", "rolesHiring", "rolesChallenge"],
   coDirector: ["coDirectorYes", "coDirectorNo", "coDirectorNotYet"],
-  interests: [
-    "businessEnglish",
-    "workplaceArabic",
-    "financialLiteracy",
-    "careerReadiness",
-    "networking",
-    "mentorship",
-    "startupClinic",
-    "talentDirectory",
-    "hiringEvents",
-  ],
+  // Derived, not restated. This table's own comment promised the form and the
+  // schema could not drift, and then Launchpad Labs was added to the programme
+  // list and this stayed at nine: the programmes page showed ten, the form
+  // offered nine, and the tenth was quietly unreachable. One source of truth.
+  interests: programmes.map((p) => p.key),
 };
 
 /**
@@ -75,7 +71,7 @@ export const fieldOptions: Record<string, readonly string[]> = {
  * and re-keying beats rewriting:
  *   fields     — join.fields.*, where the kit already had them
  *   options    — join.options.*, re-keyed from approved page copy
- *   programmes — programmes.items.<key>.name, the nine programmes themselves
+ *   programmes — programmes.items.<key>.name, the programmes themselves
  */
 export const optionLabelSource: Record<string, "fields" | "options" | "programmes"> = {
   status: "fields",
