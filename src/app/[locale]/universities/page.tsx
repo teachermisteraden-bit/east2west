@@ -31,7 +31,7 @@ export default async function UniversitiesPage({ params }: Props) {
 
   return (
     <>
-      <PageIntro eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} />
+      <PageIntro eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} door="universities" />
 
       {/* What changes for the university. */}
       <Section title={t("bringTitle")}>

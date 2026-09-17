@@ -29,7 +29,7 @@ export async function KingdomMap() {
       <div className="shell">
         <Reveal className="scene__head">
           <p className="eyebrow">{t("eyebrow")}</p>
-          <h2 className="scene__title" id="kingdom-title">
+          <h2 className="scene__title maskreveal" id="kingdom-title">
             {t("title")}
           </h2>
         </Reveal>

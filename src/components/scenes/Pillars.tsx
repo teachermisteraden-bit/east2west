@@ -21,7 +21,7 @@ export async function Pillars() {
       <div className="shell">
         <Reveal className="scene__head">
           <p className="eyebrow">{t("eyebrow")}</p>
-          <h2 className="scene__title" id="pillars-title">
+          <h2 className="scene__title maskreveal" id="pillars-title">
             {t("title")}
           </h2>
         </Reveal>

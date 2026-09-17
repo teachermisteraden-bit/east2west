@@ -27,7 +27,7 @@ export async function Closing() {
 
       <div className="shell closing__content">
         <Reveal>
-          <h2 className="closing__title" id="closing-title">
+          <h2 className="closing__title maskreveal" id="closing-title">
             {t("promise")}
           </h2>
           <div className="closing__actions">

@@ -8,6 +8,7 @@
 @import "../components/ui/chrome.css";
 @import "../components/ui/pageintro.css";
 @import "../components/ui/content.css";
+@import "../components/ui/craft.css";
 @import "../components/forms/forms.css";
 @import "../components/scenes/hero.css";
 @import "../components/scenes/scenes.css";
@@ -164,11 +165,7 @@ img, svg, video { display: block; max-width: 100%; }
   navigation: auto;
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: var(--dur-page);
-  animation-timing-function: var(--ease-noble);
-}
+/* The transition itself is defined with the other craft details, in craft.css. */
 
 /* ------------------------------------------------------------ motion ----- */
 

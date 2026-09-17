@@ -22,12 +22,12 @@ export function Section({
   rule?: boolean;
 }) {
   return (
-    <section id={id} className={`section section--${tone}${tone === "dark" ? " on-dark" : ""}`}>
+    <section id={id} className={`section section--${tone} grain${tone === "dark" ? " on-dark" : ""}`}>
       <div className="shell">
         {(eyebrow || title || lead) && (
           <header className="section__head">
             {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-            {title && <h2 className="section__title">{title}</h2>}
+            {title && <h2 className="section__title maskreveal">{title}</h2>}
             {lead && <p className="section__lead measure">{lead}</p>}
           </header>
         )}

@@ -1,0 +1,195 @@
+/*
+ * The craft details from 01 §2 and §3 — the things that make it feel made rather
+ * than assembled. Every one of them disappears under reduced motion, and none is
+ * ever the only way to perceive something.
+ */
+
+/* ------------------------------------------------------- the gold ring --- */
+
+/* The system cursor is never hidden: this rides alongside it. */
+.cursorring {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  z-index: 90;
+  inline-size: 26px;
+  block-size: 26px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 300ms var(--ease-standard),
+    width 400ms var(--ease-noble),
+    height 400ms var(--ease-noble),
+    border-color 400ms var(--ease-standard),
+    background-color 400ms var(--ease-standard);
+  will-change: transform;
+}
+.cursorring[data-on="true"] { opacity: 0.55; }
+.cursorring[data-open="true"] {
+  inline-size: 44px;
+  block-size: 44px;
+  opacity: 0.9;
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) { .cursorring { display: none; } }
+
+/* ------------------------------------------------------- paper grain ----- */
+
+/*
+ * A very faint tooth on ivory surfaces, so large fields of colour read as paper
+ * rather than as a screen. An inline SVG turbulence: no request, no image file,
+ * and it costs nothing to decode. Hidden in dark mode, where it would read as
+ * noise rather than as paper.
+ */
+/* Applied by selector rather than by hand, so every light field gets the tooth
+   and no dark one does — including scenes added later. */
+.grain,
+.scene:not(.on-dark):not(.scene--dark),
+.section:not(.on-dark):not(.section--dark) { position: relative; }
+
+.grain > *,
+.scene:not(.on-dark):not(.scene--dark) > *,
+.section:not(.on-dark):not(.section--dark) > * { position: relative; z-index: 1; }
+
+.grain::before,
+.scene:not(.on-dark):not(.scene--dark)::before,
+.section:not(.on-dark):not(.section--dark)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)' opacity='0.055'/%3E%3C/svg%3E");
+}
+:root[data-theme="dark"] .grain::before,
+:root[data-theme="dark"] .scene::before,
+:root[data-theme="dark"] .section::before,
+.on-dark .grain::before { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) :is(.grain, .scene, .section)::before { display: none; }
+}
+
+/* ------------------------------------------- the hairline that traces ---- */
+
+/*
+ * On hover a gold hairline draws around the button: along the top and down the
+ * far side, then along the bottom and back up — 400ms, the hover duration from
+ * the motion tokens. Two pseudo-elements, each drawing two sides, the second
+ * starting as the first finishes.
+ */
+.btn { position: relative; isolation: isolate; }
+
+.btn::before,
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  transition: opacity 200ms var(--ease-standard), clip-path var(--dur-hover) var(--ease-noble);
+}
+/* First half: the top edge and the end side. */
+.btn::before { clip-path: polygon(0 0, 0 0, 0 0, 0 0); }
+/* Second half: the bottom edge and the start side. */
+.btn::after {
+  clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
+  transition-delay: 0ms, 180ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover::before {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - 1px) 100%, calc(100% - 1px) 1px, 0 1px);
+  }
+  .btn:hover::after {
+    opacity: 1;
+    clip-path: polygon(100% 100%, 0 100%, 0 0, 1px 0, 1px calc(100% - 1px), 100% calc(100% - 1px));
+  }
+}
+.btn:focus-visible::before,
+.btn:focus-visible::after { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn::before,
+  .btn::after { transition: opacity 1ms; }
+  .btn:hover::before,
+  .btn:hover::after { clip-path: none; opacity: 1; }
+}
+
+/* --------------------------------------------- mask reveal on display ---- */
+
+/*
+ * Display headings rise out from behind a mask rather than fading in, so the
+ * type arrives like something being uncovered. Only headings: body text appears
+ * whole, because reading should never wait on an effect (01 §3).
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .maskreveal {
+      clip-path: inset(0 0 100% 0);
+      animation: mask-lift linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
+  }
+}
+@keyframes mask-lift {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 -18% 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .maskreveal { clip-path: none !important; animation: none !important; }
+}
+:root[data-reveal-fallback] .maskreveal { clip-path: none; }
+
+/* ------------------------------------------- the door-opening transition -- */
+
+/*
+ * Clicking a door opens it into its page.
+ *
+ * The card and the page's heading share a `view-transition-name`, so the
+ * browser morphs one into the other across the navigation rather than
+ * cross-fading the whole document. The rest of the page arrives behind an ivory
+ * veil that parts from the centre — two leaves, like the card's own inner frame
+ * opening on hover.
+ *
+ * All of this is the native View Transitions API: no JavaScript, and a browser
+ * without support simply navigates.
+ */
+::view-transition-group(*) {
+  animation-duration: var(--dur-page);
+  animation-timing-function: var(--ease-noble);
+}
+
+/* The morphing element sits above the veil so the door is visible throughout. */
+::view-transition-group(root) { z-index: 0; }
+
+/* The incoming page parts from the centre outward. */
+::view-transition-new(root) {
+  animation: door-open var(--dur-page) var(--ease-noble) both;
+}
+::view-transition-old(root) {
+  animation: door-veil var(--dur-page) var(--ease-noble) both;
+}
+
+@keyframes door-open {
+  from { clip-path: inset(0 50% 0 50%); opacity: 0.6; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+@keyframes door-veil {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-new(root),
+  ::view-transition-old(root) { animation: none !important; }
+}

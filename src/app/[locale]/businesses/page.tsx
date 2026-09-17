@@ -33,7 +33,7 @@ export default async function BusinessesPage({ params }: Props) {
 
   return (
     <>
-      <PageIntro eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} />
+      <PageIntro eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} door="businesses" />
 
       {/* Three ways in, so a business self-selects rather than being sold one thing. */}
       <Section title={t("waysTitle")}>

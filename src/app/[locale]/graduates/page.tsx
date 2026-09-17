@@ -38,7 +38,7 @@ export default async function GraduatesPage({ params }: Props) {
   return (
     <>
       {/* 1. Outcome. */}
-      <PageIntro eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} />
+      <PageIntro eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} door="graduates" />
 
       {/* 2. Empathy. The one permitted use of loss framing (02), and it names the
           problem without shaming anyone for having it. */}

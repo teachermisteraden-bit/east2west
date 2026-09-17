@@ -36,7 +36,7 @@ export default async function SponsorsPage({ params }: Props) {
 
   return (
     <>
-      <PageIntro eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} />
+      <PageIntro eyebrow={t("eyebrow")} title={t("title")} subtitle={t("subtitle")} door="sponsors" />
 
       <Section title={t("whyTitle")}>
         <CardGrid columns={2} items={namedItems(t, "why")} />

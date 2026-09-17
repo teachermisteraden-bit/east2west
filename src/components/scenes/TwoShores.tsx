@@ -24,7 +24,7 @@ export async function TwoShores() {
       <div className="shell">
         <Reveal className="scene__head">
           <p className="eyebrow">{t("eyebrow")}</p>
-          <h2 className="scene__title" id="shores-title">
+          <h2 className="scene__title maskreveal" id="shores-title">
             {t("title")}
           </h2>
         </Reveal>

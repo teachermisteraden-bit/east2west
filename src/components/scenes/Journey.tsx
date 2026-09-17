@@ -18,7 +18,7 @@ export async function Journey() {
       <div className="shell">
         <Reveal className="scene__head">
           <p className="eyebrow">{t("eyebrow")}</p>
-          <h2 className="scene__title" id="journey-title">
+          <h2 className="scene__title maskreveal" id="journey-title">
             {t("title")}
           </h2>
         </Reveal>

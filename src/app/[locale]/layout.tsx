@@ -14,6 +14,7 @@ import { SiteFooter } from "@/components/ui/SiteFooter";
 import { ThemeScript } from "@/components/ui/ThemeScript";
 import { RevealScript } from "@/components/scenes/RevealScript";
 import { Analytics } from "@/components/ui/Analytics";
+import { Cursor } from "@/components/ui/Cursor";
 import { OrganizationData } from "@/components/ui/StructuredData";
 
 import "@/styles/globals.css";
@@ -112,6 +113,7 @@ export default async function LocaleLayout({
           <main id="main">{children}</main>
           <SiteFooter locale={locale} />
           <OrganizationData locale={locale} />
+          <Cursor />
           <Analytics />
         </NextIntlClientProvider>
       </body>

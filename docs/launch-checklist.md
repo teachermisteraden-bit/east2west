@@ -28,8 +28,8 @@ rather than quietly dropped.
 - [x] The hero is complete on first paint with no JavaScript (tested with scripting disabled)
 - [x] Motion uses the noble easing and durations; nothing bounces
 - [x] Native scrolling; no smooth-scroll library; two sticky scenes, desktop only, 190vh each (tested)
-- [x] Page transitions use the native View Transitions API, with silent fallback
-- [x] Hairline frames, gold focus rings, hover lines and the 404 finished to the same standard
+- [x] Page transitions and the door-opening transition both work: the door card and its destination heading share a `view-transition-name`, so the card morphs into the page while the rest arrives behind a veil parting from the centre. Native View Transitions, no JavaScript, silent fallback
+- [x] Hairline frames, gold focus rings, hover lines, the gold ring cursor (fine pointer only, never hides the system cursor, absent under reduced motion), the hairline tracing button borders, the mask reveal on display headings, the paper grain on ivory, and the 404 — all finished to the same standard
 - [x] Reduced motion shows every scene in its final state (tested)
 - [ ] Optional WebGL hero enhancement — **not built.** The static hero stands on its own, which was always the requirement; the enhancement was optional and the budget was better spent elsewhere
 
