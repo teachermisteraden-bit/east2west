@@ -5,10 +5,31 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
 import { checkPassword, startSession, endSession, isSignedIn, isAdminConfigured } from "@/lib/admin-auth";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, isRateLimitDurable } from "@/lib/rate-limit";
 import { getSupabase, isStorageConfigured } from "@/lib/supabase";
 
 export type LoginState = { error?: "wrong" | "rate-limit" | "unconfigured" };
+
+/**
+ * How long a wrong password takes to come back.
+ *
+ * The counter above is the real control, but it only counts durably when
+ * Supabase is configured. Set ADMIN_PASSWORD before setting up storage -- an
+ * ordering nobody would think twice about -- and the gate is live on a public
+ * URL while the limiter resets with every cold serverless instance.
+ *
+ * A fixed delay on failure is the mitigation available without new
+ * infrastructure: it caps how fast any one connection can guess, and it costs a
+ * legitimate signed-in owner nothing, because it is only paid on the way out
+ * with a wrong password. It is deliberately constant rather than escalating, so
+ * it reveals nothing about how many attempts have been made.
+ *
+ * This is a brake, not a lock. The shared password remains the weak part, and
+ * the recommendation in docs/decisions.md still stands.
+ */
+const WRONG_PASSWORD_DELAY_MS = 1000;
+
+const pause = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /** Sign in. Rate limited, so the password cannot be guessed at speed. */
 export async function signIn(_prev: LoginState, formData: FormData): Promise<LoginState> {
@@ -20,7 +41,16 @@ export async function signIn(_prev: LoginState, formData: FormData): Promise<Log
   if (!limit.allowed) return { error: "rate-limit" };
 
   const password = String(formData.get("password") ?? "");
-  if (!checkPassword(password)) return { error: "wrong" };
+  if (!checkPassword(password)) {
+    await pause(WRONG_PASSWORD_DELAY_MS);
+    if (!isRateLimitDurable()) {
+      console.warn(
+        "admin sign-in failed while rate limiting is in-memory only. " +
+          "Configure Supabase so attempts are counted across instances.",
+      );
+    }
+    return { error: "wrong" };
+  }
 
   await startSession();
   redirect("/admin");

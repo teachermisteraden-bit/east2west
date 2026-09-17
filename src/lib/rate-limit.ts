@@ -29,6 +29,19 @@ export function hashIp(ip: string): string {
 
 export type RateLimitResult = { allowed: boolean; retryAfterSeconds?: number };
 
+/**
+ * Whether the limiter has somewhere durable to count.
+ *
+ * Without Supabase the fallback counter lives in one process's memory. On
+ * serverless that is close to no limit at all: each cold instance starts at
+ * zero, and an attacker gets a fresh allowance every time the platform scales
+ * out. Callers that gate something worth attacking need to know the difference
+ * rather than assume they are protected.
+ */
+export function isRateLimitDurable(): boolean {
+  return isStorageConfigured();
+}
+
 export async function checkRateLimit(ip: string): Promise<RateLimitResult> {
   const key = hashIp(ip);
   const now = Date.now();
